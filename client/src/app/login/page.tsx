@@ -17,37 +17,6 @@ export default function Home() {
 
     return (
         <div>
-            <header
-                style={{
-                    height: 64,
-                    padding: "0 24px",
-                    position: "fixed",
-                    display: "flex",
-                    background: "#000",
-                    width: "100vw",
-                }}
-            >
-                <Image
-                    src="/Logo.svg"
-                    alt="logo"
-                    width={160}
-                    height={44}
-                    style={{ marginRight: 25 }}
-                />
-                {headerItems.map((item: IHeaderItem) => (
-                    <Link
-                        href={item.patch}
-                        key={item.name}
-                        style={{
-                            padding: "0 25px",
-                            lineHeight: "64px",
-                            color: "#ccc",
-                        }}
-                    >
-                        {item.name}
-                    </Link>
-                ))}
-            </header>
             <main style={{ display: "flex", justifyContent: "center" }}>
                 <div
                     style={{

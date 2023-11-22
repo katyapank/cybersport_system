@@ -1,18 +1,24 @@
 "use client";
 
 import React from "react";
+import styled from "styled-components";
+
+const Main = styled.main`
+  display: flex;
+  justify-content: center
+`;
+
+const Container = styled.main`
+  width: 1270px;
+  margin: 0 24px 32px;
+  min-height: 100lvh
+`;
 
 export default function Home() {
     return (
         <div>
-            <main style={{ display: "flex", justifyContent: "center" }}>
-                <div
-                    style={{
-                        width: 1270,
-                        margin: "0 24px 32px",
-                        minHeight: "100lvh",
-                    }}
-                >
+            <Main>
+                <Container>
                     <div
                         style={{
                             background:
@@ -123,8 +129,8 @@ export default function Home() {
                             </div>
                         </section>
                     </div>
-                </div>
-            </main>
+                </Container>
+            </Main>
         </div>
     );
 }

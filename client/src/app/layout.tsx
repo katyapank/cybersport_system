@@ -5,6 +5,7 @@ import '../styles/globals.css'
 import React, {ReactNode} from "react";
 import {NextFont} from "next/dist/compiled/@next/font";
 import Header from "@/app/header";
+import StyledComponentsRegistry from "@/providers/StyledComponentsRegistry";
 
 const inter: NextFont = Inter({subsets: ['latin', 'cyrillic']})
 
@@ -17,8 +18,10 @@ export default function RootLayout({children}: { children: ReactNode }) {
     return (
         <html lang="ru">
         <body className={inter.className}>
-        <Header/>
-        {children}
+        <StyledComponentsRegistry>
+            <Header/>
+            {children}
+        </StyledComponentsRegistry>
         </body>
         </html>
     )

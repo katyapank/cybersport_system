@@ -25,28 +25,41 @@ export default function Header() {
                 display: "flex",
                 background: "#000",
                 width: "100vw",
+                justifyContent: 'space-between'
             }}
         >
-            <Image
-                src="/Logo.svg"
-                alt="logo"
-                width={160}
-                height={44}
-                style={{ marginRight: 25 }}
-            />
-            {headerItems.map((item: IHeaderItem) => (
-                <Link
-                    href={item.patch}
-                    key={item.name}
-                    style={{
-                        padding: "0 25px",
-                        lineHeight: "64px",
-                        color: "#ccc",
-                    }}
-                >
-                    {item.name}
-                </Link>
-            ))}
+            <div style={{display: 'flex', width: '100%'}}>
+                <Image
+                    src="/Logo.svg"
+                    alt="logo"
+                    width={160}
+                    height={44}
+                    style={{ marginRight: 25 }}
+                />
+                {headerItems.map((item: IHeaderItem) => (
+                    <Link
+                        href={item.patch}
+                        key={item.name}
+                        style={{
+                            padding: "0 25px",
+                            lineHeight: "64px",
+                            color: "#ccc",
+                        }}
+                    >
+                        {item.name}
+                    </Link>
+                ))}
+            </div>
+            <Link
+                href='/login'
+                style={{
+                    padding: "0 25px",
+                    lineHeight: "64px",
+                    color: "#ccc",
+                }}
+            >
+                Войти
+            </Link>
         </header>
     )
 }
