@@ -74,7 +74,7 @@ export default function Home() {
                                 }}
                             ></input>
                             <Link
-                                href="/login"
+                                href=""
                                 style={{
                                     width: "80%",
                                     backgroundColor: "#8973FF",
@@ -91,7 +91,7 @@ export default function Home() {
                                 Войти
                             </Link>
                             <Link
-                                href="/login"
+                                href="/register"
                                 style={{
                                     width: "80%",
                                     color: "#8973FF",
