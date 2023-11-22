@@ -3,18 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-    interface IHeaderItem {
-        name: string;
-        patch: string;
-    }
-
-    const headerItems: IHeaderItem[] = [
-        { name: "Матчи", patch: "/matches" },
-        { name: "Турниры", patch: "/tournaments" },
-        { name: "Команды", patch: "/teams" },
-        { name: "Игроки", patch: "/players" },
-    ];
-
     return (
         <div>
             <main style={{ display: "flex", justifyContent: "center" }}>
@@ -35,12 +23,10 @@ export default function Home() {
                             color: "#ccc",
                         }}
                     >
-                        <p>
-                            Добро пожаловать на esport Samara region!
-                            <br />
-                            Авторизуйтесь, чтобы иметь возможность
-                            регистрировать команду на турниры.
-                        </p>
+                        Добро пожаловать на esport Samara region!
+                        <br />
+                        Авторизуйтесь, чтобы иметь возможность регистрировать
+                        команду на турниры.
                     </div>
                     <div
                         style={{
@@ -79,6 +65,7 @@ export default function Home() {
                             ></input>
                             <input
                                 placeholder="Пароль"
+                                type="password"
                                 style={{
                                     borderRadius: 5,
                                     height: "31px",
@@ -86,6 +73,38 @@ export default function Home() {
                                     background: "#1A1A20",
                                 }}
                             ></input>
+                            <Link
+                                href="/login"
+                                style={{
+                                    width: "80%",
+                                    backgroundColor: "#8973FF",
+                                    color: "#000",
+                                    fontWeight: 800,
+                                    padding: "12px 16px",
+                                    border: "2px solid #8973FF",
+                                    cursor: "pointer",
+                                    borderRadius: 10,
+                                    textAlign: "center",
+                                    marginTop: "20px",
+                                }}
+                            >
+                                Войти
+                            </Link>
+                            <Link
+                                href="/login"
+                                style={{
+                                    width: "80%",
+                                    color: "#8973FF",
+                                    padding: "12px 16px",
+                                    border: "2px solid #8973FF",
+                                    cursor: "pointer",
+                                    borderRadius: 10,
+                                    textAlign: "center",
+                                    marginTop: "3px",
+                                }}
+                            >
+                                Регистрация
+                            </Link>
                         </div>
                     </div>
                 </div>

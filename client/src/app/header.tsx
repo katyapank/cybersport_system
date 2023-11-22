@@ -1,10 +1,12 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+    const path = usePathname();
     interface IHeaderItem {
         name: string;
         patch: string;
@@ -25,10 +27,10 @@ export default function Header() {
                 display: "flex",
                 background: "#000",
                 width: "100vw",
-                justifyContent: 'space-between'
+                justifyContent: "space-between",
             }}
         >
-            <div style={{display: 'flex', width: '100%'}}>
+            <div style={{ display: "flex" }}>
                 <Image
                     src="/Logo.svg"
                     alt="logo"
@@ -50,16 +52,27 @@ export default function Header() {
                     </Link>
                 ))}
             </div>
-            <Link
-                href='/login'
+            <div
                 style={{
-                    padding: "0 25px",
-                    lineHeight: "64px",
-                    color: "#ccc",
+                    marginRight: "25px",
                 }}
             >
-                Войти
-            </Link>
+                {path !== "/login" && (
+                    <Link
+                        href="/login"
+                        style={{
+                            lineHeight: "64px",
+                            color: "#ccc",
+                            padding: "12px 16px",
+                            border: "2px solid #8973FF",
+                            cursor: "pointer",
+                            borderRadius: 10,
+                        }}
+                    >
+                        Войти
+                    </Link>
+                )}
+            </div>
         </header>
-    )
+    );
 }
