@@ -48,7 +48,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past
     private LocalDate userBDay;
-    @NotBlank
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "user_contact")
     private List<String> userContact;
     @NotBlank

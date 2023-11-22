@@ -55,7 +55,7 @@ public class Judge {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past
     private LocalDate judgeBDay;
-    @NotBlank
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "judge_contact")
     private List<String> judgeContact;
     @Column(name = "judge_photo")
