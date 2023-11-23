@@ -18,7 +18,6 @@ export default function Home() {
                             borderLeft: "3px solid #8973FF",
                             paddingLeft: "10px",
                             width: "100%",
-                            height: "36px",
                             marginTop: "100px",
                             color: "#ccc",
                         }}
