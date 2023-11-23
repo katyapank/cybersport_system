@@ -67,8 +67,8 @@ export default function Home() {
                                     required
                                     style={{
                                         borderRadius: 5,
-                                        height: "31px",
-                                        padding: "0 10px",
+                                        height: "50px",
+                                        padding: "20px",
                                         background: "#1A1A20",
                                     }}
                                 ></input>
@@ -77,8 +77,8 @@ export default function Home() {
                                     required
                                     style={{
                                         borderRadius: 5,
-                                        height: "31px",
-                                        padding: "0 10px",
+                                        height: "50px",
+                                        padding: "20px",
                                         background: "#1A1A20",
                                     }}
                                 ></input>
@@ -87,8 +87,8 @@ export default function Home() {
                                     required
                                     style={{
                                         borderRadius: 5,
-                                        height: "31px",
-                                        padding: "0 10px",
+                                        height: "50px",
+                                        padding: "20px",
                                         background: "#1A1A20",
                                     }}
                                 ></input>
@@ -99,7 +99,7 @@ export default function Home() {
                                         width: "100%",
                                         height: "100px",
                                         borderRadius: 5,
-                                        padding: "6px 10px",
+                                        padding: "15px",
                                         background: "#1A1A20",
                                     }}
                                 ></textarea>
@@ -109,8 +109,8 @@ export default function Home() {
                                     required
                                     style={{
                                         borderRadius: 5,
-                                        height: "31px",
-                                        padding: "0 10px",
+                                        height: "50px",
+                                        padding: "20px",
                                         background: "#1A1A20",
                                     }}
                                 ></input>
@@ -120,8 +120,8 @@ export default function Home() {
                                     required
                                     style={{
                                         borderRadius: 5,
-                                        height: "31px",
-                                        padding: "0 10px",
+                                        height: "50px",
+                                        padding: "20px",
                                         background: "#1A1A20",
                                     }}
                                 ></input>
@@ -129,7 +129,7 @@ export default function Home() {
                                 <Link
                                     href="/login"
                                     style={{
-                                        width: "80%",
+                                        width: "100%",
                                         color: "#8973FF",
                                         padding: "12px 16px",
                                         border: "2px solid #8973FF",

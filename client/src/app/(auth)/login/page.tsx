@@ -58,8 +58,8 @@ export default function Home() {
                                 placeholder="Логин"
                                 style={{
                                     borderRadius: 5,
-                                    height: "31px",
-                                    padding: "0 10px",
+                                    height: "50px",
+                                    padding: "20px",
                                     background: "#1A1A20",
                                 }}
                             ></input>
@@ -68,15 +68,15 @@ export default function Home() {
                                 type="password"
                                 style={{
                                     borderRadius: 5,
-                                    height: "31px",
-                                    padding: "0 10px",
+                                    height: "50px",
+                                    padding: "20px",
                                     background: "#1A1A20",
                                 }}
                             ></input>
                             <Link
                                 href=""
                                 style={{
-                                    width: "80%",
+                                    width: "100%",
                                     backgroundColor: "#8973FF",
                                     color: "#000",
                                     fontWeight: 800,
@@ -93,7 +93,7 @@ export default function Home() {
                             <Link
                                 href="/register"
                                 style={{
-                                    width: "80%",
+                                    width: "100%",
                                     color: "#8973FF",
                                     padding: "12px 16px",
                                     border: "2px solid #8973FF",

@@ -14,123 +14,77 @@ const Container = styled.main`
   min-height: 100lvh
 `;
 
+const TopSection = styled.section`
+  background: linear-gradient(180deg, #000 33.33%, #5C4EA4 100%);
+  width: 100%;
+  aspect-ratio: 82 / 33;
+  margin-top: -64px;
+  border-radius: 10px;
+`;
+
+const TournamentsSections = styled.div`
+  display: flex;
+  gap: 24px
+`;
+
+const TournamentsSection = styled.section`
+  margin-top: 24px;
+  width: 100%;
+`;
+
+const TournamentsSectionH3 = styled.h3`
+  padding: 0 0 24px 44px
+`;
+
+const Tournaments = styled.div`
+  border-radius: 10px;
+  overflow: hidden
+`;
+
+const Tournament = styled.div<{color: string}>`
+  padding: 0 24px;
+  height: 76px;
+  background: ${props => props.color};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export default function Home() {
     return (
-        <div>
-            <Main>
-                <Container>
-                    <div
-                        style={{
-                            background:
-                                "linear-gradient(180deg, #000 33.33%, #5C4EA4 100%)",
-                            width: "100%",
-                            aspectRatio: 82 / 33,
-                            marginTop: -64,
-                            borderRadius: 10,
-                        }}
-                    ></div>
+        <Main>
+            <Container>
+                <TopSection></TopSection>
+                <TournamentsSections>
+                    <TournamentsSection>
+                        <TournamentsSectionH3>Последние турниры:</TournamentsSectionH3>
+                        <Tournaments>
+                            {
+                                Array(3).fill({}).map((_, index: number) => (
+                                    <Tournament key={index} color={index % 2 ? '#15151A' : '#1A1A20'}>
+                                        <p>Amar x Eli Hybrid Lan</p>
+                                        <p>19.11.23 - 20.11.23</p>
+                                    </Tournament>
+                                ))
+                            }
+                        </Tournaments>
+                    </TournamentsSection>
 
-                    <div style={{ display: "flex", gap: 24 }}>
-                        <section style={{ marginTop: 24, width: "100%" }}>
-                            <h3 style={{ padding: "0 0 24px 44px" }}>
-                                Последние турниры:
-                            </h3>
-                            <div
-                                style={{ borderRadius: 10, overflow: "hidden" }}
-                            >
-                                <div
-                                    style={{
-                                        padding: "0 24px",
-                                        height: 76,
-                                        background: "#1A1A20",
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <p>Amar x Eli Hybrid Lan</p>
-                                    <p>19.11.23 - 20.11.23</p>
-                                </div>
-                                <div
-                                    style={{
-                                        padding: "0 24px",
-                                        height: 76,
-                                        background: "#15151A",
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <p>Amar x Eli Hybrid Lan</p>
-                                    <p>19.11.23 - 20.11.23</p>
-                                </div>
-                                <div
-                                    style={{
-                                        padding: "0 24px",
-                                        height: 76,
-                                        background: "#1A1A20",
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <p>Amar x Eli Hybrid Lan</p>
-                                    <p>19.11.23 - 20.11.23</p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section style={{ marginTop: 24, width: "100%" }}>
-                            <h3 style={{ padding: "0 0 24px 44px" }}>
-                                Предстоящие турниры:
-                            </h3>
-                            <div
-                                style={{ borderRadius: 10, overflow: "hidden" }}
-                            >
-                                <div
-                                    style={{
-                                        padding: "0 24px",
-                                        height: 76,
-                                        background: "#1A1A20",
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <p>Amar x Eli Hybrid Lan</p>
-                                    <p>19.11.23 - 20.11.23</p>
-                                </div>
-                                <div
-                                    style={{
-                                        padding: "0 24px",
-                                        height: 76,
-                                        background: "#15151A",
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <p>Amar x Eli Hybrid Lan</p>
-                                    <p>19.11.23 - 20.11.23</p>
-                                </div>
-                                <div
-                                    style={{
-                                        padding: "0 24px",
-                                        height: 76,
-                                        background: "#1A1A20",
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <p>Amar x Eli Hybrid Lan</p>
-                                    <p>19.11.23 - 20.11.23</p>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </Container>
-            </Main>
-        </div>
+                    <TournamentsSection>
+                        <TournamentsSectionH3>Предстоящие турниры:</TournamentsSectionH3>
+                        <Tournaments>
+                            {
+                                Array(3).fill({}).map((_, index: number) => (
+                                    <Tournament key={index} color={index % 2 ? '#15151A' : '#1A1A20'}>
+                                        <p>Amar x Eli Hybrid Lan</p>
+                                        <p>19.11.23 - 20.11.23</p>
+                                    </Tournament>
+                                ))
+                            }
+                        </Tournaments>
+                    </TournamentsSection>
+                </TournamentsSections>
+            </Container>
+        </Main>
     );
 }
