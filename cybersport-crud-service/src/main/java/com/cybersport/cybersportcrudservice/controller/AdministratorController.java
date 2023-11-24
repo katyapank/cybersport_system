@@ -1,6 +1,7 @@
 package com.cybersport.cybersportcrudservice.controller;
 
 import com.cybersport.cybersportcrudservice.entity.Administrator;
+import com.cybersport.cybersportcrudservice.entity.Judge;
 import com.cybersport.cybersportcrudservice.service.AdministratorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,11 @@ public class AdministratorController {
         return adminService.getAllAdmins();
     }
     @PostMapping("/registration")
-    public UUID addAdmin(@RequestBody @Valid Administrator admin){
-        return adminService.addAdmin(admin);
+    public UUID registrationAdmin(@RequestBody @Valid Administrator admin){
+        return adminService.registrationAdmin(admin);
+    }
+    @PostMapping("/judge/registration")
+    public UUID registrationJudge(@RequestBody @Valid Judge judge){
+        return adminService.registrationJudge(judge);
     }
 }
