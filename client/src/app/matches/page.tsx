@@ -38,7 +38,7 @@ export default function Page() {
 
     const matches: IMatch[] = Array(10).fill({
         name: "Полуфинал",
-        date: "14 янв 2023",
+        date: "14 янв 2023 15:00",
         tournament: "Кубок губернатора: cs",
         team1: "Пупырышки",
         team2: "Казаки",
