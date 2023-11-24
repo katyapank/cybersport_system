@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 
@@ -46,7 +46,27 @@ const Element = styled.div<{ color: string }>`
     align-items: center;
 `;
 
+interface Player {
+    nickname: string;
+    username: string;
+    sex: boolean;
+    bday: string;
+    subject: string;
+}
+
 export default function Home() {
+    const [players, setPlayers] = useState<Player[]>([]);
+    const handleAddPlayer = () => {
+        setPlayers([
+            ...players,
+            { nickname: "", username: "", sex: true, bday: "", subject: "" },
+        ]);
+    };
+    const handleDeletePlayer = (index: number) => {
+        let p = players;
+        p.splice(index, 1);
+        setPlayers(p);
+    };
     return (
         <Main>
             <Container>
@@ -214,6 +234,7 @@ export default function Home() {
                         <GridSectionH3>
                             Состав команды{" "}
                             <div
+                                onClick={handleAddPlayer}
                                 style={{
                                     width: "150px",
                                     color: "#8973FF",
@@ -229,62 +250,65 @@ export default function Home() {
                             </div>
                         </GridSectionH3>
                         <GridElements>
-                            {Array(1)
-                                .fill({})
-                                .map((_, index: number) => (
-                                    <Element
-                                        key={index}
-                                        color={
-                                            index % 2 ? "#15151A" : "#1A1A20"
+                            {players.map((_, index: number) => (
+                                <Element
+                                    key={index}
+                                    color={index % 2 ? "#15151A" : "#1A1A20"}
+                                >
+                                    <input
+                                        placeholder="Никнейм*"
+                                        required
+                                        style={{
+                                            borderRadius: 5,
+                                            height: "50px",
+                                        }}
+                                    ></input>
+                                    <input
+                                        placeholder="ФИО*"
+                                        required
+                                        style={{
+                                            borderRadius: 5,
+                                            height: "50px",
+                                        }}
+                                    ></input>
+                                    <input
+                                        placeholder="Пол*"
+                                        required
+                                        style={{
+                                            borderRadius: 5,
+                                            height: "50px",
+                                        }}
+                                    ></input>
+                                    <input
+                                        placeholder="Дата рождения*"
+                                        required
+                                        style={{
+                                            borderRadius: 5,
+                                            height: "50px",
+                                        }}
+                                    ></input>
+                                    <input
+                                        placeholder="Субъект РФ*"
+                                        required
+                                        style={{
+                                            borderRadius: 5,
+                                            height: "50px",
+                                        }}
+                                    ></input>
+                                    <div
+                                        onClick={() =>
+                                            handleDeletePlayer(index)
                                         }
+                                        style={{
+                                            color: "#8973FF",
+                                            cursor: "pointer",
+                                            textAlign: "center",
+                                        }}
                                     >
-                                        <input
-                                            placeholder="Никнейм*"
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                                padding: "20px",
-                                            }}
-                                        ></input>
-                                        <input
-                                            placeholder="ФИО*"
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                                padding: "20px",
-                                            }}
-                                        ></input>
-                                        <input
-                                            placeholder="Пол*"
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                                padding: "20px",
-                                            }}
-                                        ></input>
-                                        <input
-                                            placeholder="Дата рождения*"
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                                padding: "20px",
-                                            }}
-                                        ></input>
-                                        <input
-                                            placeholder="Субъект РФ*"
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                                padding: "20px",
-                                            }}
-                                        ></input>
-                                    </Element>
-                                ))}
+                                        <p>(удалить)</p>
+                                    </div>
+                                </Element>
+                            ))}
                         </GridElements>
                     </GridSection>
                 </Grids>
