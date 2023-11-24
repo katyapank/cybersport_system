@@ -19,7 +19,7 @@ public class JudgeController {
         return judgeService.getAllJudge();
     }
     @PostMapping("/registration")
-    public UUID addJudge(@RequestBody @Valid Judge judge){
+    public UUID registrationJudge(@RequestBody @Valid Judge judge){
         return judgeService.addJudge(judge);
     }
 }

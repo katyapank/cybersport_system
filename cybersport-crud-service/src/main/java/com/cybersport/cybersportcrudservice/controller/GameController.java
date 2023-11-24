@@ -16,14 +16,15 @@ public class GameController {
     private GameService gameService;
 
     @GetMapping("/{match_id}")
-    public Game findGameById(@PathVariable("match_id") UUID game_id) {gameService.findGameById(game_id);}
+    public Game findGameById(@PathVariable("match_id") UUID game_id) { return gameService.findGameById(game_id);}
 
     @PostMapping
     public void addGame(@RequestBody @Valid Game game){ gameService.addGame(game);}
 
     @PutMapping("/{match_id}")
     public Game updateGame(@PathVariable("match_id") UUID game_id, @RequestBody @Valid Game game){
-        gameService.updateGame(game_id, game);
+        // gameService.updateGame(game_id, game);
+        return game;
     }
 
     @DeleteMapping("/{match_id}")
