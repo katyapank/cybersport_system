@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import IMatch from "@/types/match.type";
+import Image from "next/image";
 
 export default function Page() {
     const Main = styled.main`
@@ -34,6 +35,14 @@ export default function Page() {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    `;
+
+    const Logo = styled.main`
+        margin: 6px 25px 0 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        cursor: pointer;
     `;
 
     const matches: IMatch[] = Array(10).fill({
@@ -74,72 +83,71 @@ export default function Page() {
                 <MatchesSection>
                     <Matches>
                         {matches.map((item: IMatch, index: number) => (
-                            <Link
-                                href={`/matches/${index}?match=${JSON.stringify(
-                                    item
-                                )}`}
-                                key={index}
-                            >
-                                <Match
-                                    color={index % 2 ? "#15151A" : "#1A1A20"}
+                            <Match color={index % 2 ? "#15151A" : "#1A1A20"}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        width: "100%",
+                                        alignItems: "center",
+                                        gap: "30px",
+                                    }}
                                 >
                                     <div
                                         style={{
-                                            display: "flex",
-                                            width: "100%",
-                                            alignItems: "center",
-                                            gap: "30px",
+                                            lineHeight: "76px",
                                         }}
                                     >
-                                        <div
-                                            style={{
-                                                lineHeight: "76px",
-                                            }}
-                                        >
-                                            <p>{item.name}</p>
-                                        </div>
-                                        <div style={{}}>
-                                            <p>{item.team1}</p>
-                                            <p>{item.team2}</p>
-                                        </div>
+                                        <p>{item.name}</p>
                                     </div>
+                                    <div style={{}}>
+                                        <p>{item.team1}</p>
+                                        <p>{item.team2}</p>
+                                    </div>
+                                    <Logo>
+                                        <Image
+                                            src="/edit.png"
+                                            alt="edit"
+                                            width={20}
+                                            height={20}
+                                        />
+                                    </Logo>
+                                </div>
 
-                                    <div
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        width: "100%",
+                                    }}
+                                >
+                                    <p
                                         style={{
-                                            display: "flex",
+                                            lineHeight: "76px",
                                             width: "100%",
+                                            textAlign: "center",
                                         }}
                                     >
-                                        <p
-                                            style={{
-                                                lineHeight: "76px",
-                                                width: "100%",
-                                                textAlign: "center",
-                                            }}
-                                        >
-                                            {item.tournament}
-                                        </p>
-                                        <p
-                                            style={{
-                                                lineHeight: "76px",
-                                                width: "100%",
-                                                textAlign: "center",
-                                            }}
-                                        >
-                                            {item.date}
-                                        </p>
-                                        <p
-                                            style={{
-                                                lineHeight: "76px",
-                                                width: "100%",
-                                                textAlign: "center",
-                                            }}
-                                        >
-                                            {item.winner}
-                                        </p>
-                                    </div>
-                                </Match>
-                            </Link>
+                                        {item.tournament}
+                                    </p>
+                                    <p
+                                        style={{
+                                            lineHeight: "76px",
+                                            width: "100%",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        {item.date}
+                                    </p>
+                                    <p
+                                        style={{
+                                            lineHeight: "76px",
+                                            width: "100%",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        {item.winner}
+                                    </p>
+                                </div>
+                            </Match>
                         ))}
                     </Matches>
                 </MatchesSection>

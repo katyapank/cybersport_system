@@ -8,8 +8,8 @@ import styled from "styled-components";
 
 const Logo = styled.main`
     margin: 6px 25px 0 0;
-    width: 160px;
-    height: 44px;
+    width: 200px;
+    height: 55px;
     display: flex;
     @media (max-width: 1024px) {
         display: none;
@@ -39,6 +39,11 @@ const AdaptiveNavBar = styled.div`
         gap: 20px;
     }
 `;
+const El = styled.div`
+    &:hover {
+        border-bottom: 3px solid #8973ff;
+    }
+`;
 
 export default function Header() {
     const path: string = usePathname();
@@ -63,22 +68,25 @@ export default function Header() {
                         <Image
                             src="/Logo.svg"
                             alt="logo"
-                            width={160}
-                            height={44}
+                            width={200}
+                            height={55}
                         />
                     </Logo>
                 </Link>
                 {headerItems.map((item: IHeaderItem) => (
-                    <Link
-                        href={item.path}
-                        key={item.name}
-                        style={{
-                            lineHeight: "64px",
-                            color: pageName === item.path ? "#8973FF" : "#ccc",
-                        }}
-                    >
-                        {item.name}
-                    </Link>
+                    <El>
+                        <Link
+                            href={item.path}
+                            key={item.name}
+                            style={{
+                                lineHeight: "64px",
+                                color:
+                                    pageName === item.path ? "#8973FF" : "#ccc",
+                            }}
+                        >
+                            {item.name}
+                        </Link>
+                    </El>
                 ))}
             </AdaptiveNavBar>
             <div>
