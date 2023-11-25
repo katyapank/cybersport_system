@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -14,6 +15,11 @@ import java.util.UUID;
 public class MatchController {
     @Autowired
     private MatchService matchService;
+
+    @GetMapping("/judge/{token}")
+    public Optional<Match> getAllMatchesByJudge(@PathVariable String token){
+        return matchService.getAllMatchesByJudge(token);
+    }
     @GetMapping
     public List<Match> getAllMatches(){
         return matchService.getAllMatches();
