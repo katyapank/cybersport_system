@@ -66,6 +66,7 @@ export default function Home() {
                                 display: "flex",
                                 flexDirection: "column",
                                 gap: "20px",
+                                color: "#ccc",
                             }}
                         >
                             <input
@@ -209,21 +210,51 @@ export default function Home() {
                             marginTop: "50px",
                             display: "flex",
                             justifyContent: "center",
+                            gap: "40px",
                         }}
                     >
-                        <Link
-                            href="/profile"
+                        <div
                             style={{
-                                color: "#8973FF",
-                                padding: "12px 16px",
-                                border: "2px solid #8973FF",
-                                cursor: "pointer",
-                                borderRadius: 10,
-                                textAlign: "center",
+                                marginTop: "50px",
+                                display: "flex",
+                                justifyContent: "center",
                             }}
                         >
-                            Применить изменения
-                        </Link>
+                            <Link
+                                href="/profile"
+                                style={{
+                                    color: "#8973FF",
+                                    padding: "12px 16px",
+                                    border: "2px solid #8973FF",
+                                    cursor: "pointer",
+                                    borderRadius: 10,
+                                    textAlign: "center",
+                                }}
+                            >
+                                Применить изменения
+                            </Link>
+                        </div>
+                        <div
+                            style={{
+                                marginTop: "50px",
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <Link
+                                href="/login"
+                                style={{
+                                    color: "#FF6633",
+                                    padding: "12px 16px",
+                                    border: "2px solid #FF6633",
+                                    cursor: "pointer",
+                                    borderRadius: 10,
+                                    textAlign: "center",
+                                }}
+                            >
+                                Выйти из аккаунта
+                            </Link>
+                        </div>
                     </div>
                 </Container>
             </Main>

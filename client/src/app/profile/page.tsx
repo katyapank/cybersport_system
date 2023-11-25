@@ -6,6 +6,7 @@ import Image from "next/image";
 import ITeam from "@/types/team.type";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import Link from "next/link";
 
 const Main = styled.main`
     display: flex;
@@ -91,7 +92,7 @@ export default function Home() {
     };
     const router: AppRouterInstance = useRouter();
     const IsAuth: boolean = true;
-    const role: number = 1; //0 - team, 1 - judge, 2 - admin
+    const role: number = 2; //0 - team, 1 - judge, 2 - admin
     if (IsAuth && role == 0)
         return (
             <Main>
@@ -349,6 +350,57 @@ export default function Home() {
                             </GridElements>
                         </GridSection>
                     </Grids>
+                    <div
+                        style={{
+                            marginTop: "50px",
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "40px",
+                        }}
+                    >
+                        <div
+                            style={{
+                                marginTop: "50px",
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <Link
+                                href="/profile"
+                                style={{
+                                    color: "#8973FF",
+                                    padding: "12px 16px",
+                                    border: "2px solid #8973FF",
+                                    cursor: "pointer",
+                                    borderRadius: 10,
+                                    textAlign: "center",
+                                }}
+                            >
+                                Применить изменения
+                            </Link>
+                        </div>
+                        <div
+                            style={{
+                                marginTop: "50px",
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <Link
+                                href="/login"
+                                style={{
+                                    color: "#FF6633",
+                                    padding: "12px 16px",
+                                    border: "2px solid #FF6633",
+                                    cursor: "pointer",
+                                    borderRadius: 10,
+                                    textAlign: "center",
+                                }}
+                            >
+                                Выйти из аккаунта
+                            </Link>
+                        </div>
+                    </div>
                 </Container>
             </Main>
         );

@@ -90,21 +90,23 @@ export default function Header() {
                 ))}
             </AdaptiveNavBar>
             <div>
-                {path !== "/profile" && (
-                    <Link
-                        href="/profile"
-                        style={{
-                            lineHeight: "64px",
-                            color: "#ccc",
-                            padding: "12px 16px",
-                            border: "2px solid #8973FF",
-                            cursor: "pointer",
-                            borderRadius: 10,
-                        }}
-                    >
-                        Профиль
-                    </Link>
-                )}
+                {path !== "/profile" &&
+                    path !== "/profile/judge" &&
+                    path !== "/profile/admin" && (
+                        <Link
+                            href="/profile"
+                            style={{
+                                lineHeight: "64px",
+                                color: "#ccc",
+                                padding: "12px 16px",
+                                border: "2px solid #8973FF",
+                                cursor: "pointer",
+                                borderRadius: 10,
+                            }}
+                        >
+                            Профиль
+                        </Link>
+                    )}
             </div>
         </AdaptiveHeader>
     );
