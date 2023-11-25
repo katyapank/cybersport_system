@@ -42,6 +42,9 @@ const AdaptiveNavBar = styled.div`
 const El = styled.div`
     &:hover {
         border-bottom: 3px solid #8973ff;
+        @media (max-width: 1024px) {
+            border-bottom: none;
+        }
     }
 `;
 

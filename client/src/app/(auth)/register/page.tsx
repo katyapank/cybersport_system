@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
 const Main = styled.main`
     display: flex;
@@ -312,6 +313,27 @@ export default function Home() {
                         </GridElements>
                     </GridSection>
                 </Grids>
+                <div
+                    style={{
+                        marginTop: "50px",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
+                    <Link
+                        href="/profile"
+                        style={{
+                            color: "#8973FF",
+                            padding: "12px 16px",
+                            border: "2px solid #8973FF",
+                            cursor: "pointer",
+                            borderRadius: 10,
+                            textAlign: "center",
+                        }}
+                    >
+                        Сохранить
+                    </Link>
+                </div>
             </Container>
         </Main>
     );
