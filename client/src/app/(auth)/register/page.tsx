@@ -8,6 +8,7 @@ import Player from "@/app/(auth)/register/player";
 import {useLoginTeamMutation, useRegisterTeamMutation} from "@/redux/team/project.api";
 import ILoginTeam from "@/types/team/login-team.type";
 import IPlayer from "@/types/player.type";
+import {useRouter} from "next/navigation";
 
 const Main = styled.main`
   display: flex;
@@ -164,6 +165,7 @@ export default function Home() {
     const [registerTeam, {isError: isErrorRegister, isLoading: isLoadingRegister}] = useRegisterTeamMutation();
     const [loginTeam, {isError: isErrorLogin, isLoading: isLoadingLogin}] = useLoginTeamMutation();
 
+    const router = useRouter()
 
     const onSubmit = async (values: any): Promise<void> => {
         await registerTeam({...values, teamUser: players}).finally(
@@ -173,6 +175,7 @@ export default function Home() {
                     teamPassword: values.teamPassword
                 }) as { data: ILoginTeam };
                 window.localStorage.setItem('teamToken', data.token)
+                router.push('/')
             }
         )
     }
