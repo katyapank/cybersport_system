@@ -35,9 +35,6 @@ public class Tournament {
     @OneToOne
     @PrimaryKeyJoinColumn(name = "tournament_game")
     private Game tournamentGame;
-    @OneToMany
-    @Column(name = "tournament_match")
-    private List<Judge> tournamentMatch;
     /*@NotNull(message="{start day of tournament is invalid}")
     @Column(name = "tournament_start_day")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -50,14 +47,9 @@ public class Tournament {
     private LocalDate tournamentEndDay;*/
     @Column(name = "tournament_description")
     private String tournamentDescription;
-    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "tournament_result_table")
-    private TournamentResult tournamentResultTable;  //?????????
     @OneToMany
     @Column(name = "tournament_judge")
     private List<Judge> tournamentJudge;
-
     @Column
     @Enumerated(EnumType.STRING)
     private TournamentStage tournamentStage;

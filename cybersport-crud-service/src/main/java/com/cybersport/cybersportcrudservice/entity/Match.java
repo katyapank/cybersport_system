@@ -43,6 +43,10 @@ public class Match {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate matchEndDay;
+    @ManyToOne
+    @NotNull
+    @JoinColumn
+    private Tournament matchTournament;
     @OneToOne
     @PrimaryKeyJoinColumn(name = "match_team1")
     private Team matchTeam1;

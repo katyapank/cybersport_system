@@ -23,7 +23,7 @@ public class MatchController {
         return matchService.getMatchById(match_id);
     }
     @PostMapping
-    public void addMatch(@RequestBody @Valid Match match){ matchService.addMatch(match);}
+    public UUID addMatch(@RequestBody @Valid Match match){ return matchService.addMatch(match);}
 
     @DeleteMapping("/{match_id}")
     public void deleteMatch(@PathVariable("match_id") UUID match_id){
@@ -33,5 +33,10 @@ public class MatchController {
     @PutMapping("/{match_id}/ended")
     public Match updateMatchEnded(@PathVariable("match_id") UUID match_id){
         return matchService.updateMatchEnded(match_id);
+    }
+
+    @PutMapping("/{match_id}")
+    public Match updateMatch(@PathVariable("match_id") UUID match_id, @RequestBody @Valid Match match){
+        return matchService.updateMatch(match_id, match);
     }
 }
