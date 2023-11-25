@@ -7,15 +7,19 @@ import com.cybersport.cybersportcrudservice.entity.Tournament;
 import com.cybersport.cybersportcrudservice.entity.dto.MatchDto;
 import com.cybersport.cybersportcrudservice.entity.enums.TournamentStage;
 import com.cybersport.cybersportcrudservice.repository.MatchRepository;
+import com.cybersport.cybersportcrudservice.repository.TeamRepository;
 import com.cybersport.cybersportcrudservice.repository.TournamentRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,6 +32,8 @@ import java.util.*;
 public class TournamentService {
     @Autowired
     TournamentRepository tournamentRepository;
+    @Autowired
+    TeamRepository teamRepository;
     @Autowired
     MatchRepository matchRepository;
 
@@ -54,12 +60,20 @@ public class TournamentService {
         return tournamentRepository.save(tournament).getTournamentId();
     }
 
-    public void addTournamentTeam(UUID tournament_id, Team team){
+    public ResponseEntity<Team> addTournamentTeam(UUID tournament_id, Map<String, String> token){
         Tournament tournamentTemp = tournamentRepository.findById(tournament_id).orElseThrow(()->new IllegalStateException(
                 "tournament with id " + tournament_id + " does not exists"));
+        String jws = token.get("token");
+        int i = jws.lastIndexOf('.');
+        String withoutSignature = jws.substring(0, i + 1);
+        Claims claims = (Claims) Jwts.parser().parse(withoutSignature).getBody();
+        String login = (String) claims.get("login");
+        Team tempTeam =  teamRepository.findByTeamLogin(login).get();
         List<Team> Teams = tournamentTemp.getTournamentTeamList();
-        Teams.add(team);
+        Teams.add(tempTeam);
         tournamentTemp.setTournamentTeamList(Teams);
+        tournamentRepository.save(tournamentTemp);
+        return ResponseEntity.ok().build();
     }
 
     @Transactional

@@ -1,10 +1,12 @@
 package com.cybersport.cybersportcrudservice.service;
 
+import com.cybersport.cybersportcrudservice.entity.Judge;
 import com.cybersport.cybersportcrudservice.entity.Match;
-import com.cybersport.cybersportcrudservice.entity.Tournament;
+import com.cybersport.cybersportcrudservice.repository.JudgeRepository;
 import com.cybersport.cybersportcrudservice.repository.MatchRepository;
 import com.cybersport.cybersportcrudservice.repository.TournamentRepository;
-import com.google.gson.Gson;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,8 +24,18 @@ public class MatchService {
     @Autowired
     MatchRepository matchRepository;
     @Autowired
+    JudgeRepository judgeRepository;
+    @Autowired
     TournamentRepository tournamentRepository;
 
+    public Optional<Match> getAllMatchesByJudge(String jws){
+        int i = jws.lastIndexOf('.');
+        String withoutSignature = jws.substring(0, i + 1);
+        Claims claims = (Claims) Jwts.parser().parse(withoutSignature).getBody();
+        String login = (String) claims.get("login");
+        Optional<Judge> judge = judgeRepository.findByJudgeLogin(login);
+        return matchRepository.findMatchByJudgeId(judge.get().getJudgeId());
+    }
     public List<Match> getAllMatches(){ return matchRepository.findAll(); }
 
     public Match getMatchById(UUID match_id){
