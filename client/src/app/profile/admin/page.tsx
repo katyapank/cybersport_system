@@ -91,8 +91,8 @@ export default function Home() {
     };
     const router: AppRouterInstance = useRouter();
     const IsAuth: boolean = true;
-    const role: number = 1; //0 - team, 1 - judge, 2 - admin
-    if (IsAuth && role == 0)
+    const role: number = 0; //0 - team, 1 - judge, 2 - admin
+    if (IsAuth && role == 2)
         return (
             <Main>
                 <Container>
@@ -352,7 +352,7 @@ export default function Home() {
                 </Container>
             </Main>
         );
-    else if (IsAuth && role == 1) return router.push("/profile/judge");
-    else if (IsAuth && role == 2) return router.push("/profile/admin");
+    else if (IsAuth && role == 0) return router.push("/profile");
+    else if (IsAuth && role == 1) return router.push("/judge");
     else router.push("/login");
 }
