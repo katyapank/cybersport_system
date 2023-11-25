@@ -6,6 +6,8 @@ import React, {ReactNode} from "react";
 import {NextFont} from "next/dist/compiled/@next/font";
 import Header from "@/app/header";
 import StyledComponentsRegistry from "@/providers/StyledComponentsRegistry";
+import ReduxProviders from "@/providers/ReduxProviders";
+import Auth from "@/providers/Auth";
 
 const inter: NextFont = Inter({subsets: ['latin', 'cyrillic']})
 
@@ -19,8 +21,12 @@ export default function RootLayout({children}: { children: ReactNode }) {
         <html lang="ru">
         <body className={inter.className}>
         <StyledComponentsRegistry>
-            <Header/>
-            {children}
+           <ReduxProviders>
+               <Auth>
+                   <Header/>
+                   {children}
+               </Auth>
+           </ReduxProviders>
         </StyledComponentsRegistry>
         </body>
         </html>

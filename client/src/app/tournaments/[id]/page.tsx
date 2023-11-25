@@ -19,10 +19,14 @@ export default function Page() {
     `;
 
     const Container = styled.main`
-      width: 100%;
-      max-width: 1270px;
       margin: 83px 24px 32px;
-      min-height: 100lvh
+      width: 1270px;
+      min-height: 100lvh;
+      display: flex;
+      flex-direction: column;
+      @media (max-width: 1024px) {
+        margin: 80px 10px 15px 10px;
+      }
     `;
     const {height, width} = useWindowDimensions();
 

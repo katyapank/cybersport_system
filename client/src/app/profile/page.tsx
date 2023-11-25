@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import ITeam from "@/types/team.type";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import Link from "next/link";
+import ITeam from "@/types/team/team.type";
+import {useAuthMyTeamMutation} from "@/redux/team/project.api";
+import {isError} from "util";
+import IPlayer from "@/types/player.type";
 
 const Main = styled.main`
     display: flex;
@@ -49,75 +53,128 @@ const Element = styled.div<{ color: string }>`
     align-items: center;
 `;
 
-interface Player {
-    nickname: string;
-    username: string;
-    sex: boolean;
-    bday: string;
-    subject: string;
-}
-
-const team: ITeam = {
-    name: "Пупырышки",
-    leader: "gazmanoff",
-    win_num: 10,
-    description: "Описание",
-    email: "team@yandex.ru",
-    password: "12345678",
-    captain_email: "captain@yandex.ru",
-};
 
 export default function Home() {
-    const [players, setPlayers] = useState<Player[]>(
-        Array(3).fill({
-            nickname: "vovan",
-            username: "Антонов Владимир Юрьевич",
-            sex: true,
-            bday: "12.12.12",
-            subject: "Самарская область",
-        })
-    );
+    const [players, setPlayers] = useState<IPlayer[]>([]);
 
     const handleAddPlayer = () => {
         setPlayers([
             ...players,
-            { nickname: "", username: "", sex: true, bday: "", subject: "" },
+            {
+                userLastName: '',
+                userFirstName: '',
+                userPatronymic: '',
+                userSex: false,
+                userNickname: '',
+                userRole: '',
+                userBDay: '',
+                userContact: [''],
+                userGto: ''
+            },
         ]);
     };
-    const handleDeletePlayer = (index: number) => {
-        let temp = players.slice();
+    const handleDeletePlayer = (index: number): void => {
+        let temp: IPlayer[] = players.slice();
         temp.splice(index, 1);
         setPlayers(temp);
     };
     const router: AppRouterInstance = useRouter();
-    const IsAuth: boolean = true;
-    if (IsAuth)
-        return (
-            <Main>
-                <Container>
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: "70px",
-                            alignItems: "center",
-                        }}
-                    >
+
+    const [authMyTeam, {data: team, isLoading, isError}] = useAuthMyTeamMutation()
+
+    useEffect((): void => {
+        if (window.localStorage.getItem('teamToken'))
+            authMyTeam(window.localStorage.getItem('teamToken') as string)
+    }, []);
+
+    useEffect((): void => {
+        team && setPlayers(team.teamUser as IPlayer[])
+    }, [team]);
+
+    if (!window.localStorage.getItem('teamToken') || isError) router.push("/login");
+
+        if(team) {
+            return (
+                <Main>
+                    <Container>
                         <div
                             style={{
-                                width: "250px",
-                                height: "250px",
-                                borderRadius: "50%",
-                                overflow: "hidden",
+                                display: "flex",
+                                gap: "70px",
+                                alignItems: "center",
                             }}
                         >
-                            <Image
-                                src="/default_logo.png"
-                                alt="team_logo"
-                                width={250}
-                                height={250}
-                            ></Image>
+                            <div
+                                style={{
+                                    width: "250px",
+                                    height: "250px",
+                                    borderRadius: "50%",
+                                    overflow: "hidden",
+                                }}
+                            >
+                                <Image
+                                    src="/default_logo.png"
+                                    alt="team_logo"
+                                    width={250}
+                                    height={250}
+                                ></Image>
+                            </div>
+                            <div style={{ width: "60%" }}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "5px",
+                                        color: "#ccc",
+                                    }}
+                                >
+                                    <input
+                                        placeholder="Название команды"
+                                        maxLength={29}
+                                        value={team.teamName}
+                                        required
+                                        style={{
+                                            borderRadius: 5,
+                                            height: "50px",
+                                            padding: "20px",
+                                            background: "#1A1A20",
+                                        }}
+                                    ></input>
+                                    *
+                                </div>
+                                <div
+                                    style={{
+                                        borderLeft: "3px solid #8973FF",
+                                        paddingLeft: "10px",
+                                        width: "100%",
+                                        marginTop: "20px",
+                                        color: "#ccc",
+                                    }}
+                                >
+                                <textarea
+                                    placeholder="Описание команды (до 200 символов)"
+                                    maxLength={200}
+                                    value={team.teamDescription}
+                                    style={{
+                                        resize: "none",
+                                        width: "100%",
+                                        height: "90px",
+                                        borderRadius: 5,
+                                        padding: "15px",
+                                        background: "#1A1A20",
+                                    }}
+                                ></textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div style={{ width: "60%" }}>
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                marginTop: "50px",
+                                justifyContent: "space-between",
+                            }}
+                        >
                             <div
                                 style={{
                                     display: "flex",
@@ -127,9 +184,8 @@ export default function Home() {
                                 }}
                             >
                                 <input
-                                    placeholder="Название команды"
-                                    maxLength={29}
-                                    value={team.name}
+                                    placeholder="Логин"
+                                    value={team.teamName}
                                     required
                                     style={{
                                         borderRadius: 5,
@@ -142,214 +198,204 @@ export default function Home() {
                             </div>
                             <div
                                 style={{
-                                    borderLeft: "3px solid #8973FF",
-                                    paddingLeft: "10px",
-                                    width: "100%",
-                                    marginTop: "20px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "5px",
                                     color: "#ccc",
                                 }}
                             >
-                                <textarea
-                                    placeholder="Описание команды (до 200 символов)"
-                                    maxLength={200}
-                                    value={team.description}
+                                <input
+                                    placeholder="Субъект РФ"
+                                    value={team.teamSubject}
+                                    required
                                     style={{
-                                        resize: "none",
-                                        width: "100%",
-                                        height: "90px",
                                         borderRadius: 5,
-                                        padding: "15px",
+                                        height: "50px",
+                                        padding: "20px",
                                         background: "#1A1A20",
                                     }}
-                                ></textarea>
+                                ></input>
+                                *
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "5px",
+                                    color: "#ccc",
+                                }}
+                            >
+                                <input
+                                    placeholder="Придумайте пароль"
+                                    type="password"
+                                    value={team.teamPassword}
+                                    required
+                                    style={{
+                                        borderRadius: 5,
+                                        height: "50px",
+                                        padding: "20px",
+                                        background: "#1A1A20",
+                                    }}
+                                ></input>
+                                *
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "5px",
+                                    color: "#ccc",
+                                }}
+                            >
+                                <input
+                                    placeholder="Повторите пароль"
+                                    type="password"
+                                    required
+                                    style={{
+                                        borderRadius: 5,
+                                        height: "50px",
+                                        padding: "20px",
+                                        background: "#1A1A20",
+                                    }}
+                                ></input>
+                                *
                             </div>
                         </div>
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            marginTop: "50px",
-                            justifyContent: "space-between",
-                        }}
-                    >
+                        <Grids>
+                            <GridSection>
+                                <GridSectionH3>
+                                    Состав команды{" "}
+                                    <div
+                                        onClick={handleAddPlayer}
+                                        style={{
+                                            width: "150px",
+                                            color: "#8973FF",
+                                            padding: "6px 8px",
+                                            border: "2px solid #8973FF",
+                                            cursor: "pointer",
+                                            borderRadius: 10,
+                                            textAlign: "center",
+                                            marginTop: "3px",
+                                        }}
+                                    >
+                                        <p>Добавить участника</p>
+                                    </div>
+                                </GridSectionH3>
+                                <GridElements>
+                                    {players.map((_: IPlayer, index: number) => (
+                                        <Element
+                                            key={index}
+                                            color={
+                                                index % 2 ? "#15151A" : "#1A1A20"
+                                            }
+                                        >
+                                            <input
+                                                placeholder="Никнейм*"
+                                                defaultValue={_.userNickname}
+                                                required
+                                                style={{
+                                                    borderRadius: 5,
+                                                    height: "50px",
+                                                }}
+                                            ></input>
+                                            <input
+                                                placeholder="ФИО*"
+                                                defaultValue={_.userLastName ? `${_.userLastName} ${_.userFirstName} ${_.userPatronymic}` : ''}
+                                                required
+                                                style={{
+                                                    borderRadius: 5,
+                                                    height: "50px",
+                                                }}
+                                            ></input>
+                                            <input
+                                                placeholder="Пол*"
+                                                defaultValue={_.userSex ? 'ж' : 'м'}
+                                                required
+                                                style={{
+                                                    borderRadius: 5,
+                                                    height: "50px",
+                                                }}
+                                            ></input>
+                                            <input
+                                                placeholder="Дата рождения*"
+                                                defaultValue={_.userBDay}
+                                                required
+                                                style={{
+                                                    borderRadius: 5,
+                                                    height: "50px",
+                                                }}
+                                            ></input>
+                                            <div
+                                                onClick={() =>
+                                                    handleDeletePlayer(index)
+                                                }
+                                                style={{
+                                                    color: "#8973FF",
+                                                    cursor: "pointer",
+                                                    textAlign: "center",
+                                                }}
+                                            >
+                                                <p>(удалить)</p>
+                                            </div>
+                                        </Element>
+                                    ))}
+                                </GridElements>
+                            </GridSection>
+                        </Grids>
                         <div
                             style={{
+                                marginTop: "50px",
                                 display: "flex",
-                                alignItems: "center",
-                                gap: "5px",
-                                color: "#ccc",
+                                justifyContent: "center",
+                                gap: "40px",
                             }}
                         >
-                            <input
-                                placeholder="Логин или email команды"
-                                value={team.email}
-                                required
+                            <div
                                 style={{
-                                    borderRadius: 5,
-                                    height: "50px",
-                                    padding: "20px",
-                                    background: "#1A1A20",
+                                    marginTop: "50px",
+                                    display: "flex",
+                                    justifyContent: "center",
                                 }}
-                            ></input>
-                            *
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "5px",
-                                color: "#ccc",
-                            }}
-                        >
-                            <input
-                                placeholder="Email капитана"
-                                value={team.captain_email}
-                                required
-                                style={{
-                                    borderRadius: 5,
-                                    height: "50px",
-                                    padding: "20px",
-                                    background: "#1A1A20",
-                                }}
-                            ></input>
-                            *
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "5px",
-                                color: "#ccc",
-                            }}
-                        >
-                            <input
-                                placeholder="Придумайте пароль"
-                                type="password"
-                                value={team.password}
-                                required
-                                style={{
-                                    borderRadius: 5,
-                                    height: "50px",
-                                    padding: "20px",
-                                    background: "#1A1A20",
-                                }}
-                            ></input>
-                            *
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "5px",
-                                color: "#ccc",
-                            }}
-                        >
-                            <input
-                                placeholder="Повторите пароль"
-                                type="password"
-                                required
-                                style={{
-                                    borderRadius: 5,
-                                    height: "50px",
-                                    padding: "20px",
-                                    background: "#1A1A20",
-                                }}
-                            ></input>
-                            *
-                        </div>
-                    </div>
-                    <Grids>
-                        <GridSection>
-                            <GridSectionH3>
-                                Состав команды{" "}
-                                <div
-                                    onClick={handleAddPlayer}
+                            >
+                                <Link
+                                    href="/profile"
                                     style={{
-                                        width: "150px",
                                         color: "#8973FF",
-                                        padding: "6px 8px",
+                                        padding: "12px 16px",
                                         border: "2px solid #8973FF",
                                         cursor: "pointer",
                                         borderRadius: 10,
                                         textAlign: "center",
-                                        marginTop: "3px",
                                     }}
                                 >
-                                    <p>Добавить участника</p>
-                                </div>
-                            </GridSectionH3>
-                            <GridElements>
-                                {players.map((_, index: number) => (
-                                    <Element
-                                        key={index}
-                                        color={
-                                            index % 2 ? "#15151A" : "#1A1A20"
-                                        }
-                                    >
-                                        <input
-                                            placeholder="Никнейм*"
-                                            value={_.nickname}
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                            }}
-                                        ></input>
-                                        <input
-                                            placeholder="ФИО*"
-                                            value={_.username}
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                            }}
-                                        ></input>
-                                        <input
-                                            placeholder="Пол*"
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                            }}
-                                        ></input>
-                                        <input
-                                            placeholder="Дата рождения*"
-                                            value={_.bday}
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                            }}
-                                        ></input>
-                                        <input
-                                            placeholder="Субъект РФ*"
-                                            value={_.subject}
-                                            required
-                                            style={{
-                                                borderRadius: 5,
-                                                height: "50px",
-                                            }}
-                                        ></input>
-                                        <div
-                                            onClick={() =>
-                                                handleDeletePlayer(index)
-                                            }
-                                            style={{
-                                                color: "#8973FF",
-                                                cursor: "pointer",
-                                                textAlign: "center",
-                                            }}
-                                        >
-                                            <p>(удалить)</p>
-                                        </div>
-                                    </Element>
-                                ))}
-                            </GridElements>
-                        </GridSection>
-                    </Grids>
-                </Container>
-            </Main>
-        );
-    else router.push("/login");
+                                    Применить изменения
+                                </Link>
+                            </div>
+                            <div
+                                style={{
+                                    marginTop: "50px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <Link
+                                    href="/login"
+                                    onClick={() => window.localStorage.removeItem('teamToken')}
+                                    style={{
+                                        color: "#FF6633",
+                                        padding: "12px 16px",
+                                        border: "2px solid #FF6633",
+                                        cursor: "pointer",
+                                        borderRadius: 10,
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    Выйти из аккаунта
+                                </Link>
+                            </div>
+                        </div>
+                    </Container>
+                </Main>
+            );
+        }
 }
