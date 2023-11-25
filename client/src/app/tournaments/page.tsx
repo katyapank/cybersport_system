@@ -45,28 +45,51 @@ export default function Page() {
         <Main>
             <Container>
                 <h1>Киберспортивные турниры</h1>
-                <select
-                    id="option"
-                    name="option"
+                <div
                     style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignContent: "center",
                         marginTop: "25px",
-                        border: "2px solid #ccc",
-                        borderRadius: "5px",
-                        height: "30px",
-                        width: "80px",
-                        paddingLeft: "8px",
+                        justifyContent: "space-between",
                     }}
                 >
-                    <option value="all" style={{ backgroundColor: "#000" }}>
-                        Все
-                    </option>
-                    <option
-                        value="personal"
-                        style={{ backgroundColor: "#000" }}
+                    <select
+                        id="option"
+                        name="option"
+                        style={{
+                            border: "2px solid #ccc",
+                            borderRadius: "5px",
+                            height: "30px",
+                            width: "80px",
+                            paddingLeft: "8px",
+                        }}
                     >
-                        Мои
-                    </option>
-                </select>
+                        <option value="all" style={{ backgroundColor: "#000" }}>
+                            Все
+                        </option>
+                        <option
+                            value="personal"
+                            style={{ backgroundColor: "#000" }}
+                        >
+                            Мои
+                        </option>
+                    </select>
+                    <Link
+                        href="tournaments/new"
+                        style={{
+                            width: "150px",
+                            color: "#8973FF",
+                            padding: "6px 8px",
+                            border: "2px solid #8973FF",
+                            cursor: "pointer",
+                            borderRadius: 10,
+                            textAlign: "center",
+                        }}
+                    >
+                        <p>Новый турнир</p>
+                    </Link>
+                </div>
                 <TournamentsSection>
                     <Tournaments>
                         {tournaments.map((item: ITournament, index: number) => (

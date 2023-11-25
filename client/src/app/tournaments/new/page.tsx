@@ -81,8 +81,6 @@ export default function Home() {
                         style={{
                             width: "250px",
                             height: "250px",
-                            borderRadius: "50%",
-                            overflow: "hidden",
                         }}
                     >
                         <Image
@@ -92,7 +90,14 @@ export default function Home() {
                             height={250}
                         ></Image>
                     </div>
-                    <div style={{ width: "60%" }}>
+                    <div
+                        style={{
+                            width: "60%",
+                            gap: "20px",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
                         <div
                             style={{
                                 display: "flex",
@@ -102,7 +107,7 @@ export default function Home() {
                             }}
                         >
                             <input
-                                placeholder="Название команды"
+                                placeholder="Название турнира"
                                 maxLength={29}
                                 required
                                 style={{
@@ -116,123 +121,103 @@ export default function Home() {
                         </div>
                         <div
                             style={{
-                                borderLeft: "3px solid #8973FF",
-                                paddingLeft: "10px",
-                                width: "100%",
-                                marginTop: "20px",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "5px",
                                 color: "#ccc",
                             }}
                         >
-                            <textarea
-                                placeholder="Описание команды (до 200 символов)"
-                                maxLength={200}
+                            <input
+                                placeholder="Даты проведения"
+                                maxLength={29}
+                                required
                                 style={{
-                                    resize: "none",
-                                    width: "100%",
-                                    height: "90px",
                                     borderRadius: 5,
-                                    padding: "15px",
+                                    height: "50px",
+                                    padding: "20px",
                                     background: "#1A1A20",
                                 }}
-                            ></textarea>
+                            ></input>
+                            *
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "5px",
+                                color: "#ccc",
+                            }}
+                        >
+                            <input
+                                placeholder="Дисциплина"
+                                required
+                                style={{
+                                    borderRadius: 5,
+                                    height: "50px",
+                                    padding: "20px",
+                                    background: "#1A1A20",
+                                }}
+                            ></input>
+                            *
                         </div>
                     </div>
                 </div>
                 <div
                     style={{
                         display: "flex",
-                        flexDirection: "row",
+                        flexDirection: "column",
                         marginTop: "50px",
-                        justifyContent: "space-between",
+                        gap: "30px",
                     }}
                 >
                     <div
                         style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "5px",
+                            borderLeft: "3px solid #8973FF",
+                            paddingLeft: "10px",
+                            width: "100%",
+                            marginTop: "20px",
                             color: "#ccc",
                         }}
                     >
-                        <input
-                            placeholder="Логин или email команды"
-                            required
+                        <textarea
+                            placeholder="Описание турнира (до 200 символов)"
+                            maxLength={200}
                             style={{
+                                resize: "none",
+                                width: "100%",
+                                height: "90px",
                                 borderRadius: 5,
-                                height: "50px",
-                                padding: "20px",
+                                padding: "15px",
                                 background: "#1A1A20",
                             }}
-                        ></input>
-                        *
+                        ></textarea>
                     </div>
                     <div
                         style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "5px",
+                            paddingLeft: "10px",
+                            width: "100%",
+                            marginTop: "20px",
                             color: "#ccc",
                         }}
                     >
-                        <input
-                            placeholder="Email капитана"
-                            required
+                        <textarea
+                            placeholder="Текстовое содержание (до 2000 символов)"
+                            maxLength={200}
                             style={{
+                                resize: "none",
+                                width: "100%",
+                                height: "500px",
                                 borderRadius: 5,
-                                height: "50px",
-                                padding: "20px",
+                                padding: "15px",
                                 background: "#1A1A20",
                             }}
-                        ></input>
-                        *
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "5px",
-                            color: "#ccc",
-                        }}
-                    >
-                        <input
-                            placeholder="Придумайте пароль"
-                            type="password"
-                            required
-                            style={{
-                                borderRadius: 5,
-                                height: "50px",
-                                padding: "20px",
-                                background: "#1A1A20",
-                            }}
-                        ></input>
-                        *
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "5px",
-                            color: "#ccc",
-                        }}
-                    >
-                        <input
-                            placeholder="Повторите пароль"
-                            type="password"
-                            required
-                            style={{
-                                borderRadius: 5,
-                                height: "50px",
-                                padding: "20px",
-                                background: "#1A1A20",
-                            }}
-                        ></input>
-                        *
+                        ></textarea>
                     </div>
                 </div>
                 <Grids>
                     <GridSection>
                         <GridSectionH3>
-                            Состав команды{" "}
+                            Судейская бригада{" "}
                             <div
                                 onClick={handleAddPlayer}
                                 style={{
@@ -246,7 +231,7 @@ export default function Home() {
                                     marginTop: "3px",
                                 }}
                             >
-                                <p>Добавить участника</p>
+                                <p>Добавить судью</p>
                             </div>
                         </GridSectionH3>
                         <GridElements>
@@ -256,45 +241,14 @@ export default function Home() {
                                     color={index % 2 ? "#15151A" : "#1A1A20"}
                                 >
                                     <input
-                                        placeholder="Никнейм*"
+                                        placeholder="id*"
                                         required
                                         style={{
                                             borderRadius: 5,
                                             height: "50px",
                                         }}
                                     ></input>
-                                    <input
-                                        placeholder="ФИО*"
-                                        required
-                                        style={{
-                                            borderRadius: 5,
-                                            height: "50px",
-                                        }}
-                                    ></input>
-                                    <input
-                                        placeholder="Пол*"
-                                        required
-                                        style={{
-                                            borderRadius: 5,
-                                            height: "50px",
-                                        }}
-                                    ></input>
-                                    <input
-                                        placeholder="Дата рождения*"
-                                        required
-                                        style={{
-                                            borderRadius: 5,
-                                            height: "50px",
-                                        }}
-                                    ></input>
-                                    <input
-                                        placeholder="Субъект РФ*"
-                                        required
-                                        style={{
-                                            borderRadius: 5,
-                                            height: "50px",
-                                        }}
-                                    ></input>
+
                                     <div
                                         onClick={() =>
                                             handleDeletePlayer(index)

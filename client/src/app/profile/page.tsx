@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import ITeam from "@/types/team.type";
 
 const Main = styled.main`
     display: flex;
@@ -54,6 +55,16 @@ interface Player {
     subject: string;
 }
 
+const team: ITeam = {
+    name: "Пупырышки",
+    leader: "gazmanoff",
+    win_num: 10,
+    description: "Описание",
+    email: "team@yandex.ru",
+    password: "12345678",
+    captain_email: "captain@yandex.ru",
+};
+
 export default function Home() {
     const [players, setPlayers] = useState<Player[]>([]);
     const handleAddPlayer = () => {
@@ -104,6 +115,7 @@ export default function Home() {
                             <input
                                 placeholder="Название команды"
                                 maxLength={29}
+                                value={team.name}
                                 required
                                 style={{
                                     borderRadius: 5,
@@ -126,6 +138,7 @@ export default function Home() {
                             <textarea
                                 placeholder="Описание команды (до 200 символов)"
                                 maxLength={200}
+                                value={team.description}
                                 style={{
                                     resize: "none",
                                     width: "100%",
@@ -156,6 +169,7 @@ export default function Home() {
                     >
                         <input
                             placeholder="Логин или email команды"
+                            value={team.email}
                             required
                             style={{
                                 borderRadius: 5,
@@ -176,6 +190,7 @@ export default function Home() {
                     >
                         <input
                             placeholder="Email капитана"
+                            value={team.captain_email}
                             required
                             style={{
                                 borderRadius: 5,
@@ -197,6 +212,7 @@ export default function Home() {
                         <input
                             placeholder="Придумайте пароль"
                             type="password"
+                            value={team.password}
                             required
                             style={{
                                 borderRadius: 5,
