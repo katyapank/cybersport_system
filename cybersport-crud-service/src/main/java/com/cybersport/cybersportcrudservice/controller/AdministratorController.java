@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +23,10 @@ public class AdministratorController {
     @PostMapping("/registration")
     public UUID registrationAdmin(@RequestBody @Valid Administrator admin){
         return adminService.registrationAdmin(admin);
+    }
+    @PostMapping("/login")
+    public Map<String, Object> loginAdmin(@RequestBody @Valid Map<String, String> admin){
+        return adminService.loginAdmin(admin);
     }
     @PostMapping("/judge/registration")
     public UUID registrationJudge(@RequestBody @Valid Judge judge){
