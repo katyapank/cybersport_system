@@ -62,7 +62,6 @@ public class Tournament {
     @MapKeyColumn(name = "tournament_stage")
     @Column(name = "tournament_date")
     @CollectionTable(name = "tournament_dates")
-    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @JsonPropertyOrder({"tournamentStage", "date"})
     private Map<TournamentStage, LocalDate> tournamentDates;
     @Column(name = "tournament_matrix", columnDefinition="text")

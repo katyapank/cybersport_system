@@ -15,11 +15,9 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -45,12 +43,9 @@ public class TournamentService {
 
     @Transactional
     public UUID addTournament(Tournament tournament){
-        /*Map<TournamentStage, LocalDate> tournamentDates = new HashMap<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate Now = LocalDate.parse(LocalDate.now().format(formatter));
-        Now = LocalDate.now();
-        tournamentDates.put(TournamentStage.ACCEPTINGaPPLICATIONS, Now);
-        tournament.setTournamentDates(tournamentDates);*/
+        Map<TournamentStage, LocalDate> tournamentDates = new HashMap<>();
+        tournamentDates.put(TournamentStage.ACCEPTINGaPPLICATIONS, LocalDate.now());
+        tournament.setTournamentDates(tournamentDates);
         return tournamentRepository.save(tournament).getTournamentId();
     }
 
@@ -93,14 +88,14 @@ public class TournamentService {
         return matches;
     }
 
-    /*public List<Team> getTournamentTable(UUID tournament_id){
+    public List<Team> getTournamentTable(UUID tournament_id){
         Tournament tournamentTemp = tournamentRepository.findById(tournament_id).orElseThrow(()->new IllegalStateException(
                 "tournament with id " + tournament_id + " does not exists"));
-        List<Match> matches = getAllMatchesByTournamentId(tournament_id);
 
 
 
-    }*/
+
+    }
 
     public void deleteTournament(UUID tournament_id){
         tournamentRepository.delete(tournamentRepository.findById(tournament_id).orElseThrow(()-> new IllegalStateException(
@@ -113,7 +108,6 @@ public class TournamentService {
                 "tournament with id " + tournament_id + " does not exists"));
         tournamentTemp.setTournamentGame(tournament.getTournamentGame());
         tournamentTemp.setTournamentDescription(tournament.getTournamentDescription());
-        tournamentTemp.setTournamentDates(tournament.getTournamentDates());
         tournamentTemp.setTournamentJudge(tournament.getTournamentJudge());
         tournamentTemp.setTournamentStage(tournament.getTournamentStage());
         tournamentTemp.setTournamentWinners(tournament.getTournamentWinners());
@@ -122,17 +116,16 @@ public class TournamentService {
         tournamentTemp.setTournamentStartDay(tournament.getTournamentStartDay());
         tournamentTemp.setTournamentEndDay(tournament.getTournamentEndDay());
         tournamentTemp.setTournamentTeamList(tournament.getTournamentTeamList());
-        /*if(!tournament.getTournamentDates().containsKey(tournament.getTournamentStage())){
+        if(!tournament.getTournamentDates().containsKey(tournament.getTournamentStage())){
             Map<TournamentStage, LocalDate> tournamentDates = tournament.getTournamentDates();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate Now = LocalDate.parse(LocalDate.now().format(formatter));
-            tournamentDates.put(TournamentStage.ACCEPTINGaPPLICATIONS, Now);
+            tournamentDates.put(tournament.getTournamentStage(), LocalDate.now());
             tournamentTemp.setTournamentDates(tournamentDates);
-        }*/
+        }
+        tournamentTemp.setTournamentDates(tournament.getTournamentDates());
         return tournamentTemp;
     }
 
-
+    @Transactional
     public List<Tournament> getUnfinishedTournaments() {
         ArrayList<Tournament> tournaments = new ArrayList<>();
         for (Tournament tournament : tournamentRepository.findAll()
