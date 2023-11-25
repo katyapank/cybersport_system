@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
 const Main = styled.main`
     display: flex;
@@ -46,6 +47,15 @@ const Element = styled.div<{ color: string }>`
     align-items: center;
 `;
 
+const NewElement = styled.div<{ color: string }>`
+    padding: 0 24px;
+    height: 145px;
+    background: ${(props) => props.color};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
 interface Player {
     nickname: string;
     username: string;
@@ -56,9 +66,16 @@ interface Player {
 
 export default function Home() {
     const [players, setPlayers] = useState<Player[]>([]);
+    const [new_players, setNewPlayers] = useState<Player[]>([]);
     const handleAddPlayer = () => {
         setPlayers([
             ...players,
+            { nickname: "", username: "", sex: true, bday: "", subject: "" },
+        ]);
+    };
+    const handleAddNewPlayer = () => {
+        setNewPlayers([
+            ...new_players,
             { nickname: "", username: "", sex: true, bday: "", subject: "" },
         ]);
     };
@@ -66,6 +83,11 @@ export default function Home() {
         let temp = players.slice();
         temp.splice(index, 1);
         setPlayers(temp);
+    };
+    const handleDeleteNewPlayer = (index: number) => {
+        let temp = new_players.slice();
+        temp.splice(index, 1);
+        setNewPlayers(temp);
     };
     return (
         <Main>
@@ -218,20 +240,37 @@ export default function Home() {
                     <GridSection>
                         <GridSectionH3>
                             Судейская бригада{" "}
-                            <div
-                                onClick={handleAddPlayer}
-                                style={{
-                                    width: "150px",
-                                    color: "#8973FF",
-                                    padding: "6px 8px",
-                                    border: "2px solid #8973FF",
-                                    cursor: "pointer",
-                                    borderRadius: 10,
-                                    textAlign: "center",
-                                    marginTop: "3px",
-                                }}
-                            >
-                                <p>Добавить судью</p>
+                            <div style={{ display: "flex", gap: "20px" }}>
+                                <div
+                                    onClick={handleAddPlayer}
+                                    style={{
+                                        width: "150px",
+                                        color: "#8973FF",
+                                        padding: "6px 8px",
+                                        border: "2px solid #8973FF",
+                                        cursor: "pointer",
+                                        borderRadius: 10,
+                                        textAlign: "center",
+                                        marginTop: "3px",
+                                    }}
+                                >
+                                    <p>Добавить судью</p>
+                                </div>
+                                <div
+                                    onClick={handleAddNewPlayer}
+                                    style={{
+                                        width: "150px",
+                                        color: "#8973FF",
+                                        padding: "6px 8px",
+                                        border: "2px solid #8973FF",
+                                        cursor: "pointer",
+                                        borderRadius: 10,
+                                        textAlign: "center",
+                                        marginTop: "3px",
+                                    }}
+                                >
+                                    <p>Новый судья</p>
+                                </div>
                             </div>
                         </GridSectionH3>
                         <GridElements>
@@ -263,9 +302,126 @@ export default function Home() {
                                     </div>
                                 </Element>
                             ))}
+                            {new_players.map((_, index: number) => (
+                                <NewElement
+                                    key={index}
+                                    color={index % 2 ? "#2c2848" : "#302c4d"}
+                                >
+                                    <div>
+                                        <input
+                                            placeholder="id*"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                        <input
+                                            placeholder="Никнейм*"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                        <input
+                                            placeholder="ФИО*"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                        <input
+                                            placeholder="Должность*"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                        <input
+                                            placeholder="Категория*"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                        <input
+                                            placeholder="Субъект РФ*"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                        <input
+                                            placeholder="Дата рождения*"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                        <input
+                                            placeholder="Контакты*"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                        <input
+                                            placeholder="Пароль*"
+                                            type="password"
+                                            required
+                                            style={{
+                                                borderRadius: 5,
+                                                height: "50px",
+                                            }}
+                                        ></input>
+                                    </div>
+
+                                    <div
+                                        onClick={() =>
+                                            handleDeleteNewPlayer(index)
+                                        }
+                                        style={{
+                                            color: "#8973FF",
+                                            cursor: "pointer",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        <p>(удалить)</p>
+                                    </div>
+                                </NewElement>
+                            ))}
                         </GridElements>
                     </GridSection>
                 </Grids>
+
+                <div
+                    style={{
+                        marginTop: "50px",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
+                    <Link
+                        href="/tournaments"
+                        style={{
+                            color: "#8973FF",
+                            padding: "12px 16px",
+                            border: "2px solid #8973FF",
+                            cursor: "pointer",
+                            borderRadius: 10,
+                            textAlign: "center",
+                        }}
+                    >
+                        Сохранить
+                    </Link>
+                </div>
             </Container>
         </Main>
     );

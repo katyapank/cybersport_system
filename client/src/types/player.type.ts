@@ -1,4 +1,4 @@
-interface IPlayer {
+export default interface IPlayer {
     nickname: string;
     username: string;
     sex: boolean;
