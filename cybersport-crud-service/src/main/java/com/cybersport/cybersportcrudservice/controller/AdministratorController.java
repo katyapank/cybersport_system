@@ -24,6 +24,10 @@ public class AdministratorController {
     public UUID registrationAdmin(@RequestBody @Valid Administrator admin){
         return adminService.registrationAdmin(admin);
     }
+    @GetMapping("/{token}")
+    public Administrator getAdminByToken(@PathVariable String token){
+        return adminService.getAdminByToken(token);
+    }
     @PostMapping("/login")
     public Map<String, Object> loginAdmin(@RequestBody @Valid Map<String, String> admin){
         return adminService.loginAdmin(admin);

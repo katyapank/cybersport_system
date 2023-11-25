@@ -6,6 +6,7 @@ import com.cybersport.cybersportcrudservice.exception.TeamNotFoundException;
 import com.cybersport.cybersportcrudservice.repository.AdministratorRepository;
 import com.cybersport.cybersportcrudservice.repository.JudgeRepository;
 import com.cybersport.cybersportcrudservice.utilsSecurity.Crypt;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,13 @@ public class AdministratorService {
     /**Тестовый метод**/
     public List<Administrator> getAllAdmins(){
         return adminRepository.findAll();
+    }
+    public Administrator getAdminByToken(String jws){
+        int i = jws.lastIndexOf('.');
+        String withoutSignature = jws.substring(0, i + 1);
+        Claims claims = (Claims)Jwts.parser().parse(withoutSignature).getBody();
+        String login = (String) claims.get("login");
+        return adminRepository.findByAdminLogin(login).get();
     }
     @Transactional
     public UUID registrationAdmin(Administrator admin) {

@@ -31,7 +31,7 @@ public class TournamentController {
     @PostMapping
     public UUID addTournament(@RequestBody @Valid Tournament tournament){ return tournamentService.addTournament(tournament);}
 
-    @PostMapping("/{tournament_id}")
+    @PostMapping("/registration/{tournament_id}")
     public void addTournamentTeam(@PathVariable("tournament_id") UUID tournament_id, @RequestBody @Valid Team team){
         tournamentService.addTournamentTeam(tournament_id, team);
     }
