@@ -31,20 +31,19 @@ public class Tournament {
     @Size(min = 2, max = 30, message="{size is invalid}")
     @Column(name = "tournament_name")
     private String tournamentName;
+    @ManyToOne
     @NotNull
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "tournament_game")
+    @JoinColumn
     private Game tournamentGame;
-    /*@NotNull(message="{start day of tournament is invalid}")
+    @NotNull(message="{start day of tournament is invalid}")
     @Column(name = "tournament_start_day")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tournamentStartDay;
-    @NotNull(message="{end day of tournament is invalid}")
     @Column(name = "tournament_end_day")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate tournamentEndDay;*/
+    private LocalDate tournamentEndDay;
     @Column(name = "tournament_description")
     private String tournamentDescription;
     @OneToMany
@@ -53,6 +52,9 @@ public class Tournament {
     @Column
     @Enumerated(EnumType.STRING)
     private TournamentStage tournamentStage;
+    @OneToMany
+    @Column(name = "tournament_team_list")
+    private List<Team> tournamentTeamList;
     @OneToMany
     @Column(name = "tournament_winners")
     private List<Team> tournamentWinners;
@@ -63,7 +65,7 @@ public class Tournament {
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @JsonPropertyOrder({"tournamentStage", "date"})
     private Map<TournamentStage, LocalDate> tournamentDates;
-    @Column(name = "tournament_matrix")
+    @Column(name = "tournament_matrix", columnDefinition="text")
     private String tournamentMatrix;
 
 

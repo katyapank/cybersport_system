@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -14,6 +15,10 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
+    @GetMapping
+    public List<Game> getAllGames(){
+        return gameService.getAllGames();
+    }
     @GetMapping("/{match_id}")
     public Game findGameById(@PathVariable("match_id") UUID game_id) {return gameService.findGameById(game_id);}
 

@@ -52,6 +52,6 @@ public class User {
     @Column(name = "user_contact")
     private List<String> userContact;
     @NotBlank
-    @Column(name = "user_gto", unique = true)
+    @Column(name = "user_gto")
     private String userGto;
 }

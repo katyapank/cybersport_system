@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -17,6 +18,7 @@ public class GameService {
     @Autowired
     GameRepository gameRepository;
 
+    public List<Game> getAllGames(){return gameRepository.findAll();}
     public UUID addGame(Game game){ return gameRepository.save(game).getGameId();}
     public void deleteGame (UUID game_id){
         gameRepository.delete(gameRepository.findById(game_id).orElseThrow(()->new IllegalStateException(

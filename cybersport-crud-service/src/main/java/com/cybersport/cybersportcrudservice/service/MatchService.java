@@ -1,7 +1,10 @@
 package com.cybersport.cybersportcrudservice.service;
 
 import com.cybersport.cybersportcrudservice.entity.Match;
+import com.cybersport.cybersportcrudservice.entity.Tournament;
 import com.cybersport.cybersportcrudservice.repository.MatchRepository;
+import com.cybersport.cybersportcrudservice.repository.TournamentRepository;
+import com.google.gson.Gson;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,8 @@ import java.util.UUID;
 public class MatchService {
     @Autowired
     MatchRepository matchRepository;
+    @Autowired
+    TournamentRepository tournamentRepository;
 
     public List<Match> getAllMatches(){ return matchRepository.findAll(); }
 
@@ -25,7 +30,10 @@ public class MatchService {
                 "match with id " + match_id + " does not exists"));
     }
 
+    //@Transactional
     public UUID addMatch(Match match){
+        //Tournament tournamentTemp = match.getMatchTournament();
+        //tournamentTemp.setTournamentMatrix(tournamentTemp.getTournamentMatrix() + new Gson().toJson(match));
         return matchRepository.save(match).getMatchId();
     }
 

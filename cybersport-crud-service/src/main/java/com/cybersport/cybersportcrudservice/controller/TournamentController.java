@@ -3,6 +3,7 @@ package com.cybersport.cybersportcrudservice.controller;
 import com.cybersport.cybersportcrudservice.entity.Match;
 import com.cybersport.cybersportcrudservice.entity.Team;
 import com.cybersport.cybersportcrudservice.entity.Tournament;
+import com.cybersport.cybersportcrudservice.entity.dto.MatchDto;
 import com.cybersport.cybersportcrudservice.service.TournamentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,16 @@ public class TournamentController {
     @PostMapping
     public UUID addTournament(@RequestBody @Valid Tournament tournament){ return tournamentService.addTournament(tournament);}
 
+    @PostMapping("/{tournament_id}")
+    public void addTournamentTeam(@PathVariable("tournament_id") UUID tournament_id, @RequestBody @Valid Team team){
+        tournamentService.addTournamentTeam(tournament_id, team);
+    }
+
+    @GetMapping("/unfinished")
+    public List<Tournament> getUnfinishedTourments(){return tournamentService.getUnfinishedTournaments();}
+
     @GetMapping("/{tournament_id}/matches")
-    public List<Match> getAllMatchesByTournamentId(@PathVariable("tournament_id") UUID tournament_id){
+    public List<MatchDto> getAllMatchesByTournamentId(@PathVariable("tournament_id") UUID tournament_id){
         return tournamentService.getAllMatchesByTournamentId(tournament_id);
     }
 

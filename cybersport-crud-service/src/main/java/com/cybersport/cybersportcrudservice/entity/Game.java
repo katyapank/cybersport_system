@@ -36,6 +36,6 @@ public class Game {
     private List<String> gameAddFeatures;
     @NotBlank(message="{command size is invalid}")
     @Column(name = "game_command_size")
-    private Integer gameCommandSize;
+    private String gameCommandSize;
 
 }

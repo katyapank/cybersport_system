@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "api/judge")
@@ -18,8 +18,12 @@ public class JudgeController {
     public List<Judge> getAllJudge(){
         return judgeService.getAllJudge();
     }
-    @PostMapping("/registration")
-    public UUID addJudge(@RequestBody @Valid Judge judge){
-        return judgeService.addJudge(judge);
+    @GetMapping("/{token}")
+    public Judge getJudgeByToken(@PathVariable String token){
+        return judgeService.getJudgeByToken(token);
+    }
+    @PostMapping("/login")
+    public Map<String, Object> loginJudge(@RequestBody @Valid Map<String, String> judge){
+        return judgeService.loginJudge(judge);
     }
 }
