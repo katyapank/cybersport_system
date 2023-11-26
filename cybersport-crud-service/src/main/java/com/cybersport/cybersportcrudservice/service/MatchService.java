@@ -90,6 +90,7 @@ public class MatchService {
         matchTemp.setMatchTeam2P3(match.getMatchTeam2P3());
         matchTemp.setMatchTeam2P4(match.getMatchTeam2P4());
         matchTemp.setMatchTeam2P5(match.getMatchTeam2P5());
+        matchTemp.setMatchMvp(match.getMatchMvp());
         return matchTemp;
     }
 

@@ -54,6 +54,8 @@ public class Match {
     private Team matchTeam2;
     @Column(name = "match_description")
     private String matchDescription;
+    @Column(name = "match_mvp")
+    private String matchMvp;
     @Column(name = "match_score_team1")
     private Integer matchScoreTeam1;
     @Column(name = "match_score_team2")
