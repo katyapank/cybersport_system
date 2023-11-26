@@ -37,6 +37,11 @@ public class TournamentController {
     @PostMapping
     public UUID addTournament(@RequestBody @Valid Tournament tournament){ return tournamentService.addTournament(tournament);}
 
+    @GetMapping("/table/{tournament_id}")
+    public List<ResultTableDto> printResultTable(@PathVariable("tournament_id") UUID tournament_id) {
+        return tournamentService.printResultTable(tournament_id);
+    }
+
     @GetMapping("/export/{tournament_id}")
     public void exportResultTable(@PathVariable("tournament_id") UUID tournament_id, HttpServletResponse response) throws IOException {
         tournamentService.exportResultTable(tournament_id, response);

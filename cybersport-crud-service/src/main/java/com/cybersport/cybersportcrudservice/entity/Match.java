@@ -10,6 +10,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,33 @@ import java.util.UUID;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@SqlResultSetMapping(
+        name = "Mapping.MVPTableDto",
+        classes = {
+                @ConstructorResult(
+                        targetClass =  com.cybersport.cybersportcrudservice.entity.dto.MVPDto.class,
+                        columns = {
+                                @ColumnResult(name = "gameFeatures", type = ArrayList.class),
+                                @ColumnResult(name = "gameMetrics", type = ArrayList.class),
+                                @ColumnResult(name = "gameT1P1", type = ArrayList.class),
+                                @ColumnResult(name = "gameT1P2", type = ArrayList.class),
+                                @ColumnResult(name = "gameT1P3", type = ArrayList.class),
+                                @ColumnResult(name = "gameT1P4", type = ArrayList.class),
+                                @ColumnResult(name = "gameT1P5", type = ArrayList.class),
+                                @ColumnResult(name = "gameT2P1", type = ArrayList.class),
+                                @ColumnResult(name = "gameT2P2", type = ArrayList.class),
+                                @ColumnResult(name = "gameT2P3", type = ArrayList.class),
+                                @ColumnResult(name = "gameT2P4", type = ArrayList.class),
+                                @ColumnResult(name = "gameT2P5", type = ArrayList.class)
+                        }
+                )
+        }
+)
+@NamedNativeQuery(name = "Match.findResultMVP", query = "SELECT games.game_add_features as gameFeatures, games.game_add_weights as gameMetrics,\n" +
+        "matches.match_result_metrics_team1_p1 as gameT1P1, matches.match_result_metrics_team1_p2 as gameT1P2, matches.match_result_metrics_team1_p3 as gameT1P3, matches.match_result_metrics_team1_p4 as gameT1P4, matches.match_result_metrics_team1_p5 as gameT1P5,\n" +
+        "matches.match_result_metrics_team2_p1 as gameT2P1, matches.match_result_metrics_team2_p2 as gameT2P2, matches.match_result_metrics_team2_p3 as gameT2P3, matches.match_result_metrics_team2_p4 as gameT2P4, matches.match_result_metrics_team2_p5 as gameT2P5 \n" +
+        "FROM matches join games on matches.match_game_game_id = games.game_id where matches.match_id = ?1", resultSetMapping = "Mapping.MVPDto")
+
 @Table(name = "matches")
 public class Match {
     @Id

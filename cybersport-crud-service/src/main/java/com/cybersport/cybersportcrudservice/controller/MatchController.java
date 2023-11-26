@@ -1,6 +1,7 @@
 package com.cybersport.cybersportcrudservice.controller;
 
 import com.cybersport.cybersportcrudservice.entity.Match;
+import com.cybersport.cybersportcrudservice.entity.dto.MVPDto;
 import com.cybersport.cybersportcrudservice.service.MatchService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class MatchController {
     }
     @PostMapping
     public UUID addMatch(@RequestBody @Valid Match match){ return matchService.addMatch(match);}
+
+    @GetMapping("/mvp/{match_id}")
+    public MVPDto findMVP(@PathVariable("match_id") UUID match_id){
+        return matchService.findMVP(match_id);
+    }
 
     @DeleteMapping("/{match_id}")
     public void deleteMatch(@PathVariable("match_id") UUID match_id){

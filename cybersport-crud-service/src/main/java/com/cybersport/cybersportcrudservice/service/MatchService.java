@@ -2,6 +2,7 @@ package com.cybersport.cybersportcrudservice.service;
 
 import com.cybersport.cybersportcrudservice.entity.Judge;
 import com.cybersport.cybersportcrudservice.entity.Match;
+import com.cybersport.cybersportcrudservice.entity.dto.MVPDto;
 import com.cybersport.cybersportcrudservice.repository.JudgeRepository;
 import com.cybersport.cybersportcrudservice.repository.MatchRepository;
 import com.cybersport.cybersportcrudservice.repository.TournamentRepository;
@@ -41,6 +42,10 @@ public class MatchService {
     public Match getMatchById(UUID match_id){
         return matchRepository.findById(match_id).orElseThrow(()-> new IllegalStateException(
                 "match with id " + match_id + " does not exists"));
+    }
+
+    public MVPDto findMVP(UUID match_id){
+        return matchRepository.findResultMVP(match_id);
     }
 
     //@Transactional

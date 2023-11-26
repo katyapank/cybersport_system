@@ -1,6 +1,7 @@
 package com.cybersport.cybersportcrudservice.repository;
 
 import com.cybersport.cybersportcrudservice.entity.Match;
+import com.cybersport.cybersportcrudservice.entity.dto.MVPDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,5 +12,7 @@ public interface MatchRepository extends JpaRepository<Match, UUID> {
     @Query(value = "SELECT * FROM matches o WHERE o.match_judge=?1", nativeQuery = true)
     Optional<Match> findMatchByJudgeId(UUID id);
 
-    //@Query(value = "SELECT * from ")
+    @Query(nativeQuery = true)
+    MVPDto findResultMVP(UUID id);
+
 }

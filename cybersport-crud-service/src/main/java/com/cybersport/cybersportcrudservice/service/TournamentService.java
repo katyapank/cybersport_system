@@ -61,6 +61,7 @@ public class TournamentService {
         return tournamentRepository.save(tournament).getTournamentId();
     }
 
+    @Transactional
     public ResponseEntity<Team> addTournamentTeam(UUID tournament_id, Map<String, String> token){
         Tournament tournamentTemp = tournamentRepository.findById(tournament_id).orElseThrow(()->new IllegalStateException(
                 "tournament with id " + tournament_id + " does not exists"));
@@ -107,6 +108,10 @@ public class TournamentService {
     }
 
     public List<ResultTableDto> getTournamentTable(UUID tournament_id){
+        return tournamentRepository.findResultTable(tournament_id);
+    }
+
+    public List<ResultTableDto> printResultTable(UUID tournament_id){
         return tournamentRepository.findResultTable(tournament_id);
     }
 
