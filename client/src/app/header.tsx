@@ -5,7 +5,8 @@ import Link from "next/link";
 import React, {useEffect} from "react";
 import {usePathname} from "next/navigation";
 import styled from "styled-components";
-import {useAuthMyTeamMutation} from "@/redux/team/project.api";
+import {useAuthMyTeamMutation} from "@/redux/team/team.api";
+import {isError} from "util";
 
 const Logo = styled.main`
   margin: 6px 25px 0 0;
@@ -53,7 +54,7 @@ export default function Header() {
     const path: string = usePathname();
     const pageName: string = `/${path.split("/")[1]}`;
 
-    const [authMyTeam, {data: team, isLoading}] = useAuthMyTeamMutation()
+    const [authMyTeam, {data: team, isLoading, isError}] = useAuthMyTeamMutation()
 
     interface IHeaderItem {
         name: string;
@@ -84,8 +85,9 @@ export default function Header() {
                         />
                     </Logo>
                 </Link>
-                {headerItems.map((item: IHeaderItem) => (
-                    <El>
+                {
+                    headerItems.map((item: IHeaderItem, index: number) => (
+                    <El key={index}>
                         <Link
                             href={item.path}
                             key={item.name}
@@ -102,7 +104,7 @@ export default function Header() {
             </AdaptiveNavBar>
             <div>
                 {
-                    !window.localStorage.getItem('teamToken') ? (
+                    !window.localStorage.getItem('teamToken') || isError ? (
                         <Link
                             href="/login"
                             style={{

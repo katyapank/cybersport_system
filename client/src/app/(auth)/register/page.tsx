@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import {useForm} from "react-hook-form";
 import Player from "@/app/(auth)/register/player";
-import {useLoginTeamMutation, useRegisterTeamMutation} from "@/redux/team/project.api";
+import {useLoginTeamMutation, useRegisterTeamMutation} from "@/redux/team/team.api";
 import ILoginTeam from "@/types/team/login-team.type";
 import IPlayer from "@/types/player.type";
 import {useRouter} from "next/navigation";

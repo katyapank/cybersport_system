@@ -259,7 +259,7 @@ export default function Home() {
                 </Container>
             </Main>
         );
-    else if (IsAuth && role == 0) return router.push("/profile");
-    else if (IsAuth && role == 2) return router.push("/profile/admin");
-    else router.push("/login");
+    // else if (IsAuth && role == 0) return router.push("/profile");
+    // else if (IsAuth && role == 2) return router.push("/profile/admin");
+    // else router.push("/login");
 }

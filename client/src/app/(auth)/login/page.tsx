@@ -1,10 +1,40 @@
+'use client'
+
 import React from "react";
 import Link from "next/link";
+import {useForm} from "react-hook-form";
+import ILoginTeam from "@/types/team/login-team.type";
+import {useLoginTeamMutation} from "@/redux/team/team.api";
+import {useRouter} from "next/navigation";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default function Home() {
+
+
+    const {
+        register, handleSubmit
+    } = useForm({
+        defaultValues: {
+            teamPassword: '', teamLogin: ''
+        }, reValidateMode: "onChange"
+    });
+
+    const router: AppRouterInstance = useRouter()
+
+    const [loginTeam, {isError: isErrorLogin, isLoading: isLoadingLogin}] = useLoginTeamMutation();
+
+    const onSubmit = async (values: any): Promise<void> => {
+        const {data}: { data: ILoginTeam } = await loginTeam({
+            teamLogin: values.teamLogin,
+            teamPassword: values.teamPassword
+        }) as { data: ILoginTeam };
+        window.localStorage.setItem('teamToken', data.token)
+        router.push('/')
+    }
+
     return (
-        <div>
-            <main style={{ display: "flex", justifyContent: "center" }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <main style={{display: "flex", justifyContent: "center"}}>
                 <div
                     style={{
                         width: 1270,
@@ -22,7 +52,7 @@ export default function Home() {
                         }}
                     >
                         Добро пожаловать на esport Samara region!
-                        <br />
+                        <br/>
                         Авторизуйтесь, чтобы иметь возможность регистрировать
                         команду на турниры.
                     </div>
@@ -60,7 +90,8 @@ export default function Home() {
                                     padding: "20px",
                                     background: "#1A1A20",
                                 }}
-                            ></input>
+                                {...register("teamLogin")}
+                            />
                             <input
                                 placeholder="Пароль"
                                 type="password"
@@ -70,24 +101,22 @@ export default function Home() {
                                     padding: "20px",
                                     background: "#1A1A20",
                                 }}
-                            ></input>
-                            <Link
-                                href=""
-                                style={{
-                                    width: "100%",
-                                    backgroundColor: "#8973FF",
-                                    color: "#000",
-                                    fontWeight: 800,
-                                    padding: "12px 16px",
-                                    border: "2px solid #8973FF",
-                                    cursor: "pointer",
-                                    borderRadius: 10,
-                                    textAlign: "center",
-                                    marginTop: "20px",
-                                }}
-                            >
+                                {...register("teamPassword")}
+                            />
+                            <button type="submit" style={{
+                                width: "100%",
+                                backgroundColor: "#8973FF",
+                                color: "#000",
+                                fontWeight: 800,
+                                padding: "12px 16px",
+                                border: "2px solid #8973FF",
+                                cursor: "pointer",
+                                borderRadius: 10,
+                                textAlign: "center",
+                                marginTop: "20px",
+                            }}>
                                 Войти
-                            </Link>
+                            </button>
                             <Link
                                 href="/register"
                                 style={{
@@ -107,6 +136,6 @@ export default function Home() {
                     </div>
                 </div>
             </main>
-        </div>
+        </form>
     );
 }

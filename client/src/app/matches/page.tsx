@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
-import Link from "next/link";
 import IMatch from "@/types/match.type";
 import Image from "next/image";
+import {useGetAllMatchesQuery} from "@/redux/match/match.api";
 
 export default function Page() {
     const Main = styled.main`
@@ -45,113 +45,118 @@ export default function Page() {
         cursor: pointer;
     `;
 
-    const matches: IMatch[] = Array(10).fill({
-        name: "Полуфинал",
-        date: "14 янв 2023 15:00",
-        tournament: "Кубок губернатора: cs",
-        team1: "Пупырышки",
-        team2: "Казаки",
-        winner: "Пупырышки",
-    });
-    return (
-        <Main>
-            <Container>
-                <h1>Матчи</h1>
-                <select
-                    id="option"
-                    name="option"
-                    style={{
-                        marginTop: "25px",
-                        border: "2px solid #ccc",
-                        borderRadius: "5px",
-                        height: "30px",
-                        width: "80px",
-                        paddingLeft: "8px",
-                    }}
-                >
-                    <option value="all" style={{ backgroundColor: "#000" }}>
-                        Все
-                    </option>
-                    <option
-                        value="personal"
-                        style={{ backgroundColor: "#000" }}
-                    >
-                        Мои
-                    </option>
-                </select>
+    // const matches: IMatch[] = Array(10).fill({
+    //     name: "Полуфинал",
+    //     date: "14 янв 2023 15:00",
+    //     tournament: "Кубок губернатора: cs",
+    //     team1: "Пупырышки",
+    //     team2: "Казаки",
+    //     winner: "Пупырышки",
+    // });
 
-                <MatchesSection>
-                    <Matches>
-                        {matches.map((item: IMatch, index: number) => (
-                            <Match color={index % 2 ? "#15151A" : "#1A1A20"}>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        width: "100%",
-                                        alignItems: "center",
-                                        gap: "30px",
-                                    }}
-                                >
+    const {data: matches} = useGetAllMatchesQuery(null)
+
+    if(matches) {
+        return (
+            <Main>
+                <Container>
+                    <h1>Матчи</h1>
+                    {/*<select*/}
+                    {/*    id="option"*/}
+                    {/*    name="option"*/}
+                    {/*    style={{*/}
+                    {/*        marginTop: "25px",*/}
+                    {/*        border: "2px solid #ccc",*/}
+                    {/*        borderRadius: "5px",*/}
+                    {/*        height: "30px",*/}
+                    {/*        width: "80px",*/}
+                    {/*        paddingLeft: "8px",*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    {/*    <option value="all" style={{ backgroundColor: "#000" }}>*/}
+                    {/*        Все*/}
+                    {/*    </option>*/}
+                    {/*    <option*/}
+                    {/*        value="personal"*/}
+                    {/*        style={{ backgroundColor: "#000" }}*/}
+                    {/*    >*/}
+                    {/*        Мои*/}
+                    {/*    </option>*/}
+                    {/*</select>*/}
+
+                    <MatchesSection>
+                        <Matches>
+                            {
+                                matches.map((item: IMatch, index: number) => (
+                                <Match key={index} color={index % 2 ? "#15151A" : "#1A1A20"}>
                                     <div
                                         style={{
-                                            lineHeight: "76px",
+                                            display: "flex",
+                                            width: "100%",
+                                            alignItems: "center",
+                                            gap: "30px",
                                         }}
                                     >
-                                        <p>{item.name}</p>
+                                        {/*<div*/}
+                                        {/*    style={{*/}
+                                        {/*        lineHeight: "76px",*/}
+                                        {/*    }}*/}
+                                        {/*>*/}
+                                        {/*    <p>{item.matchName}</p>*/}
+                                        {/*</div>*/}
+                                        <div style={{}}>
+                                            <p>{`${item.matchTeam1.teamName} vs ${item.matchTeam2.teamName}`}</p>
+                                        </div>
+                                        {/*<Logo>*/}
+                                        {/*    <Image*/}
+                                        {/*        src="/edit.png"*/}
+                                        {/*        alt="edit"*/}
+                                        {/*        width={20}*/}
+                                        {/*        height={20}*/}
+                                        {/*    />*/}
+                                        {/*</Logo>*/}
                                     </div>
-                                    <div style={{}}>
-                                        <p>{item.team1}</p>
-                                        <p>{item.team2}</p>
-                                    </div>
-                                    <Logo>
-                                        <Image
-                                            src="/edit.png"
-                                            alt="edit"
-                                            width={20}
-                                            height={20}
-                                        />
-                                    </Logo>
-                                </div>
 
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        width: "100%",
-                                    }}
-                                >
-                                    <p
+                                    <div
                                         style={{
-                                            lineHeight: "76px",
+                                            display: "flex",
                                             width: "100%",
-                                            textAlign: "center",
                                         }}
                                     >
-                                        {item.tournament}
-                                    </p>
-                                    <p
-                                        style={{
-                                            lineHeight: "76px",
-                                            width: "100%",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {item.date}
-                                    </p>
-                                    <p
-                                        style={{
-                                            lineHeight: "76px",
-                                            width: "100%",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {item.winner}
-                                    </p>
-                                </div>
-                            </Match>
-                        ))}
-                    </Matches>
-                </MatchesSection>
-            </Container>
-        </Main>
-    );
+                                        <p
+                                            style={{
+                                                lineHeight: "76px",
+                                                width: "100%",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {item.matchTournament.tournamentName}
+                                        </p>
+                                        <p
+                                            style={{
+                                                lineHeight: "76px",
+                                                width: "100%",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {item.matchStartDay}
+                                        </p>
+                                        <p
+                                            style={{
+                                                lineHeight: "76px",
+                                                width: "100%",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {item?.matchWinner?.teamName ? item?.matchWinner?.teamName : 'Победитель не известен'}
+                                        </p>
+                                    </div>
+                                </Match>
+                            ))}
+                        </Matches>
+                    </MatchesSection>
+                </Container>
+            </Main>
+        );
+    }
 }

@@ -6,9 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Link from "next/link";
-import ITeam from "@/types/team/team.type";
-import {useAuthMyTeamMutation} from "@/redux/team/project.api";
-import {isError} from "util";
+import {useAuthMyTeamMutation} from "@/redux/team/team.api";
 import IPlayer from "@/types/player.type";
 
 const Main = styled.main`
@@ -73,11 +71,13 @@ export default function Home() {
             },
         ]);
     };
+
     const handleDeletePlayer = (index: number): void => {
         let temp: IPlayer[] = players.slice();
         temp.splice(index, 1);
         setPlayers(temp);
     };
+
     const router: AppRouterInstance = useRouter();
 
     const [authMyTeam, {data: team, isLoading, isError}] = useAuthMyTeamMutation()

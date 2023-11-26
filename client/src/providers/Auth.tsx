@@ -1,7 +1,7 @@
 'use client'
 
 import React, {ReactNode, useEffect} from 'react'
-import {useAuthMyTeamMutation} from "@/redux/team/project.api";
+import {useAuthMyTeamMutation} from "@/redux/team/team.api";
 
 export default function Auth({children}: { children: ReactNode }) {
     const [authMyTeam, {data}] = useAuthMyTeamMutation()
