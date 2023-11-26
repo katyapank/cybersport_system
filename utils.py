@@ -1,39 +1,66 @@
-from telebot import types
+import requests
+import json
+bagcheck = True
 
 
-def btns_to_markup(btns):
-    for btn in btns:
-        btn = types.KeyboardButton(btn)
+def auth_signin(login, password):
+    url = "http://10.10.10.246:8081/api/team/bot/login"
+    payload = {'teamLogin': str(login), 'teamPassword': str(password)}
+    #payload = json.dumps(payload)
+    print(payload)
+    #headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+
+    response = requests.request("POST", url, data=payload)
+    #response = requests.post(url, data=json.dumps(payload), headers=headers)
+    if bagcheck:
+        print(response.text)
+
+    return response
 
 
-def add_btns(num, btns):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    back = types.KeyboardButton('На главную')
-    btns_to_markup(btns)
-    if num == 1:
-        markup.add(back)
-    if num == 2:
-        markup.add(btns[0])
-        markup.add(back)
-    elif num == 3:
-        markup.row(btns[0], btns[1])
-        markup.row(back)
-    elif num == 4:
-        markup.row(btns[0], btns[1], btns[2])
-        markup.row(back)
-    return markup
+def get_all():
+    url = "http://10.10.10.246:8081/api/tournament"
+
+    response = requests.request("GET", url)
+    if bagcheck:
+        print(response.text)
+
+    return response
 
 
-def add_init_btns(num, btns):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btns_to_markup(btns)
-    if num == 2:
-        markup.add(btns[0])
-        markup.add(btns[1])
-    elif num == 3:
-        markup.row(btns[0], btns[1])
-        markup.row(btns[2])
-    elif num == 4:
-        markup.row(btns[0], btns[1])
-        markup.row(btns[2], btns[3])
-    return markup
+def get_all_matches():
+    url = "http://10.10.10.246:8081/api/match"
+
+    response = requests.request("GET", url)
+    if bagcheck:
+        print(response.text)
+
+    return response
+
+
+def get_all_teams():
+    url = "http://10.10.10.246:8081/api/team"
+
+    response = requests.request("GET", url)
+    if bagcheck:
+        print(response.text)
+    return response
+
+
+def get_team_by_name(name):
+    url = f'http://10.10.10.246:8081/api/team/searchByName/{name}'
+
+    response = requests.request("GET", url)
+    if bagcheck:
+        print(response.text)
+
+    return response
+
+
+def get_profile(token):
+    url = f'http://10.10.10.246:8081/api/team/{token}'
+    response = requests.get(url)
+    if bagcheck:
+        print(response.text)
+
+    return response
