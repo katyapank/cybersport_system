@@ -31,6 +31,9 @@ public class TeamService {
     public Optional<Team> getTeamById(UUID id){
         return teamRepository.findById(id);
     }
+    public Optional<Team> getTeamByName(String name){
+        return teamRepository.findByTeamName(name);
+    }
     public Team getTeamByToken(String jws){
         int i = jws.lastIndexOf('.');
         String withoutSignature = jws.substring(0, i + 1);

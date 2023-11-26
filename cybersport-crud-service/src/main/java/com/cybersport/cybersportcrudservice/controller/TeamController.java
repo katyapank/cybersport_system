@@ -21,9 +21,13 @@ public class TeamController {
     public List<Team> getAllTeams(){
         return teamService.getAllTeams();
     }
-    @GetMapping("/search/{id}")
-    public Optional<Team> getTeamById(@PathVariable("id") UUID id){
-        return teamService.getTeamById(id);
+    // @GetMapping("/search/{id}")
+   // public Optional<Team> getTeamById(@PathVariable("id") UUID id){
+       // return teamService.getTeamById(id);
+    //}
+    @GetMapping("/searchByName/{teamName}")
+    public Optional<Team> getTeamByLogin(@PathVariable("teamName") String name){
+        return teamService.getTeamByName(name);
     }
     @GetMapping("/{token}")
     public Team getTeamByToken(@PathVariable String token){
@@ -33,8 +37,12 @@ public class TeamController {
     public UUID registrationTeam(@RequestBody @Valid Team team){
         return teamService.registrationTeam(team);
     }
+    @PostMapping("/bot/login")
+    public Map<String, Object> loginTeam(@RequestParam @Valid Map<String, String> team){
+        return teamService.loginTeam(team);
+    }
     @PostMapping("/login")
-    public Map<String, Object> loginUser(@RequestBody @Valid Map<String, String> team){
+    public Map<String, Object> loginTheTeam(@RequestBody @Valid Map<String, String> team){
         return teamService.loginTeam(team);
     }
     @PatchMapping("/{token}")
