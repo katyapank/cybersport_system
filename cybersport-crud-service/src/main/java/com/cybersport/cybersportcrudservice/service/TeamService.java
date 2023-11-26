@@ -44,6 +44,8 @@ public class TeamService {
         userRepository.saveAll(users);
         team.setTeamUser(users);
         team.setTeamPassword(Crypt.hash(team.getTeamPassword()));
+        team.setTeamLossCount(0);
+        team.setTeamWinCount(0);
         return teamRepository.save(team).getTeamId();
     }
     @Transactional

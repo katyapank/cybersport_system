@@ -32,10 +32,10 @@ public class MatchController {
     @PostMapping
     public UUID addMatch(@RequestBody @Valid Match match){ return matchService.addMatch(match);}
 
-    /*@GetMapping("/mvp/{match_id}")
+    @GetMapping("/mvp/{match_id}")
     public String findMVP(@PathVariable("match_id") UUID match_id){
         return matchService.findMVP(match_id);
-    }*/
+    }
 
     @DeleteMapping("/{match_id}")
     public void deleteMatch(@PathVariable("match_id") UUID match_id){

@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 public class MVPDto {
     List<String> gameFeatures;
+
     List<Integer> gameMetrics;
     List<Integer> gameT1P1;
     List<Integer> gameT1P2;
