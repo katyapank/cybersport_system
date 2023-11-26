@@ -44,9 +44,17 @@ public class MatchService {
                 "match with id " + match_id + " does not exists"));
     }
 
-    public MVPDto findMVP(UUID match_id){
-        return matchRepository.findResultMVP(match_id);
-    }
+    /*@Transactional
+    public String findMVP(UUID match_id){
+        MVPDto PlayerList =  matchRepository.findResultMVP(match_id);
+        String Res;
+        int i, max;
+        for (String curW: PlayerList.getGameMetrics()) {
+
+        }
+
+        return Res;
+    }*/
 
     //@Transactional
     public UUID addMatch(Match match){

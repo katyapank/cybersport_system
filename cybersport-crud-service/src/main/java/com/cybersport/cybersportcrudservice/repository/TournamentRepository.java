@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface TournamentRepository extends JpaRepository<Tournament, UUID> {
     @Query(nativeQuery = true)
     List<ResultTableDto> findResultTable(UUID tournament_id);
+
+
 }

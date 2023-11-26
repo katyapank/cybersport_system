@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,33 +19,6 @@ import java.util.UUID;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@SqlResultSetMapping(
-        name = "Mapping.MVPTableDto",
-        classes = {
-                @ConstructorResult(
-                        targetClass =  com.cybersport.cybersportcrudservice.entity.dto.MVPDto.class,
-                        columns = {
-                                @ColumnResult(name = "gameFeatures", type = ArrayList.class),
-                                @ColumnResult(name = "gameMetrics", type = ArrayList.class),
-                                @ColumnResult(name = "gameT1P1", type = ArrayList.class),
-                                @ColumnResult(name = "gameT1P2", type = ArrayList.class),
-                                @ColumnResult(name = "gameT1P3", type = ArrayList.class),
-                                @ColumnResult(name = "gameT1P4", type = ArrayList.class),
-                                @ColumnResult(name = "gameT1P5", type = ArrayList.class),
-                                @ColumnResult(name = "gameT2P1", type = ArrayList.class),
-                                @ColumnResult(name = "gameT2P2", type = ArrayList.class),
-                                @ColumnResult(name = "gameT2P3", type = ArrayList.class),
-                                @ColumnResult(name = "gameT2P4", type = ArrayList.class),
-                                @ColumnResult(name = "gameT2P5", type = ArrayList.class)
-                        }
-                )
-        }
-)
-@NamedNativeQuery(name = "Match.findResultMVP", query = "SELECT games.game_add_features as gameFeatures, games.game_add_weights as gameMetrics,\n" +
-        "matches.match_result_metrics_team1_p1 as gameT1P1, matches.match_result_metrics_team1_p2 as gameT1P2, matches.match_result_metrics_team1_p3 as gameT1P3, matches.match_result_metrics_team1_p4 as gameT1P4, matches.match_result_metrics_team1_p5 as gameT1P5,\n" +
-        "matches.match_result_metrics_team2_p1 as gameT2P1, matches.match_result_metrics_team2_p2 as gameT2P2, matches.match_result_metrics_team2_p3 as gameT2P3, matches.match_result_metrics_team2_p4 as gameT2P4, matches.match_result_metrics_team2_p5 as gameT2P5 \n" +
-        "FROM matches join games on matches.match_game_game_id = games.game_id where matches.match_id = ?1", resultSetMapping = "Mapping.MVPDto")
-
 @Table(name = "matches")
 public class Match {
     @Id
@@ -99,32 +71,32 @@ public class Match {
     private Team matchWinner;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team1_p1")
-    private List<String> matchTeam1P1;
+    private List<Integer> matchTeam1P1;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team1_p2")
-    private List<String> matchTeam1P2;
+    private List<Integer> matchTeam1P2;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team1_p3")
-    private List<String> matchTeam1P3;
+    private List<Integer> matchTeam1P3;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team1_p4")
-    private List<String> matchTeam1P4;
+    private List<Integer> matchTeam1P4;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team1_p5")
-    private List<String> matchTeam1P5;
+    private List<Integer> matchTeam1P5;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team2_p1")
-    private List<String> matchTeam2P1;
+    private List<Integer> matchTeam2P1;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team2_p2")
-    private List<String> matchTeam2P2;
+    private List<Integer> matchTeam2P2;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team2_p3")
-    private List<String> matchTeam2P3;
+    private List<Integer> matchTeam2P3;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team2_p4")
-    private List<String> matchTeam2P4;
+    private List<Integer> matchTeam2P4;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "match_result_metrics_team2_p5")
-    private List<String> matchTeam2P5;
+    private List<Integer> matchTeam2P5;
 }

@@ -36,7 +36,7 @@ public class Game {
     private List<String> gameAddFeatures;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "game_add_weights")
-    private List<String> gameAddWeights;
+    private List<Integer> gameAddWeights;
     @NotBlank(message="{command size is invalid}")
     @Column(name = "game_command_size")
     private String gameCommandSize;
