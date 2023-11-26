@@ -92,8 +92,6 @@ public class TournamentService {
                 matchTemp.setMatchId(match.getMatchId());
                 matchTemp.setMatchIsEnded(match.getMatchIsEnded());
                 matchTemp.setMatchEndDay(match.getMatchEndDay());
-                matchTemp.setMatchResultFeaturesTeam1(match.getMatchResultFeaturesTeam1());
-                matchTemp.setMatchResultFeaturesTeam2(match.getMatchResultFeaturesTeam2());
                 matchTemp.setMatchTeam1(match.getMatchTeam1().getTeamName());
                 matchTemp.setMatchTeam2(match.getMatchTeam2().getTeamName());
                 matchTemp.setMatchScoreTeam1(match.getMatchScoreTeam1());

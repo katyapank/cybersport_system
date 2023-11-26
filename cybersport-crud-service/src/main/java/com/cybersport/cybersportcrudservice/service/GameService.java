@@ -38,6 +38,7 @@ public class GameService {
         gameTemp.setGameCommandSize(game.getGameCommandSize());
         gameTemp.setGameGenre(game.getGameGenre());
         gameTemp.setGameName(game.getGameName());
+        gameTemp.setGameAddWeights(game.getGameAddWeights());
         return gameTemp;
     }
 }

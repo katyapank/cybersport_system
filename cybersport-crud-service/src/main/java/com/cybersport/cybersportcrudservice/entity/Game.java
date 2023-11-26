@@ -34,6 +34,9 @@ public class Game {
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     @Column(name = "game_add_features")
     private List<String> gameAddFeatures;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "game_add_weights")
+    private List<String> gameAddWeights;
     @NotBlank(message="{command size is invalid}")
     @Column(name = "game_command_size")
     private String gameCommandSize;

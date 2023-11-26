@@ -44,8 +44,8 @@ public class Team {
     private String teamPassword;
     @Column(name = "team_win")
     private int teamWinCount;
-    @Column(name = "team_draw")
-    private int teamDrawCount;
     @Column(name = "team_loss")
     private int teamLossCount;
+    @Column(name = "team_rate")
+    private int teamRate;
 }

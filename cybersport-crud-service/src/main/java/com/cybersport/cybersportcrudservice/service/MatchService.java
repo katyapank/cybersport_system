@@ -76,11 +76,20 @@ public class MatchService {
         matchTemp.setMatchTeam2(match.getMatchTeam2());
         matchTemp.setMatchScoreTeam1(match.getMatchScoreTeam1());
         matchTemp.setMatchScoreTeam2(match.getMatchScoreTeam2());
-        matchTemp.setMatchResultFeaturesTeam1(match.getMatchResultFeaturesTeam1());
         matchTemp.setMatchWinner(match.getMatchWinner());
         matchTemp.setMatchIsEnded(match.getMatchIsEnded());
         matchTemp.setMatchStartDay(match.getMatchStartDay());
         matchTemp.setMatchTournament(match.getMatchTournament());
+        matchTemp.setMatchTeam1P1(match.getMatchTeam1P1());
+        matchTemp.setMatchTeam1P2(match.getMatchTeam1P2());
+        matchTemp.setMatchTeam1P3(match.getMatchTeam1P3());
+        matchTemp.setMatchTeam1P4(match.getMatchTeam1P4());
+        matchTemp.setMatchTeam1P5(match.getMatchTeam1P5());
+        matchTemp.setMatchTeam2P1(match.getMatchTeam2P1());
+        matchTemp.setMatchTeam2P2(match.getMatchTeam2P2());
+        matchTemp.setMatchTeam2P3(match.getMatchTeam2P3());
+        matchTemp.setMatchTeam2P4(match.getMatchTeam2P4());
+        matchTemp.setMatchTeam2P5(match.getMatchTeam2P5());
         return matchTemp;
     }
 

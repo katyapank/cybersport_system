@@ -74,7 +74,6 @@ public class TeamService {
         newMap.put("teamLogin", person.get().getTeamLogin());
         newMap.put("teamPassword", team.get("teamPassword"));
         newMap.put("teamWinCount", person.get().getTeamWinCount());
-        newMap.put("teamDrawCount", person.get().getTeamDrawCount());
         newMap.put("teamLossCount", person.get().getTeamLossCount());
         return newMap;
     }
@@ -89,7 +88,6 @@ public class TeamService {
         team1.setTeamLogin(team.getTeamLogin());
         team1.setTeamPassword(team.getTeamPassword());
         team1.setTeamWinCount((team.getTeamWinCount()));
-        team1.setTeamDrawCount((team.getTeamDrawCount()));
         team1.setTeamLossCount((team.getTeamLossCount()));
         return ResponseEntity.ok().build();
     }

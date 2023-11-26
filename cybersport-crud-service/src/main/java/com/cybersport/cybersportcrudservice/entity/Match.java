@@ -68,9 +68,33 @@ public class Match {
     @JoinColumn(name = "match_winner")
     private Team matchWinner;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
-    @Column(name = "match_result_features_team1")
-    private List<String> matchResultFeaturesTeam1;
+    @Column(name = "match_result_metrics_team1_p1")
+    private List<String> matchTeam1P1;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
-    @Column(name = "match_result_features_team2")
-    private List<String> matchResultFeaturesTeam2;
+    @Column(name = "match_result_metrics_team1_p2")
+    private List<String> matchTeam1P2;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "match_result_metrics_team1_p3")
+    private List<String> matchTeam1P3;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "match_result_metrics_team1_p4")
+    private List<String> matchTeam1P4;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "match_result_metrics_team1_p5")
+    private List<String> matchTeam1P5;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "match_result_metrics_team2_p1")
+    private List<String> matchTeam2P1;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "match_result_metrics_team2_p2")
+    private List<String> matchTeam2P2;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "match_result_metrics_team2_p3")
+    private List<String> matchTeam2P3;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "match_result_metrics_team2_p4")
+    private List<String> matchTeam2P4;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
+    @Column(name = "match_result_metrics_team2_p5")
+    private List<String> matchTeam2P5;
 }
